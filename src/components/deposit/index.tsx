@@ -303,7 +303,7 @@ const Deposit = () => {
               },
             })
             .then((response) => {
-              const data: any = response.data.data;
+              const data: any = response.data.data.deposits;
 
               return {
                 data,

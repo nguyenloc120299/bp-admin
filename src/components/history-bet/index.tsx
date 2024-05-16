@@ -93,7 +93,11 @@ const HistoriesBet = () => {
           <div className="flex items-center justify-between gap-1">
             <div>Loại cược:</div>
             <div>
-              {row?.bet_condition ==='up' ? <Tag color='success'>Mua</Tag> :<Tag color='red'>Bán</Tag> }
+              {row?.bet_condition === 'up' ? (
+                <Tag color="success">Mua</Tag>
+              ) : (
+                <Tag color="red">Bán</Tag>
+              )}
             </div>
           </div>
           <div className="flex items-center justify-between gap-1">
@@ -114,7 +118,26 @@ const HistoriesBet = () => {
         </div>
       ),
     },
-   
+    {
+      title: 'Trạng thái',
+      sorter: false,
+      align: 'center',
+      ellipsis: true,
+      render: (_, row: any) => (
+        <div className="flex flex-col justify-center items-center gap-1">
+          {' '}
+          <div className="flex items-center justify-between gap-1">
+            {row?.transaction_status === 'pending' ? (
+              <Tag>Đang chờ</Tag>
+            ) : (
+              <Tag color={row?.value > 0 ? 'green' : 'red'}>
+                {row?.value > 0 ? 'Thắng' : 'Thua'}
+              </Tag>
+            )}
+          </div>
+        </div>
+      ),
+    },
     {
       title: 'Ngày cược',
       sorter: false,
@@ -124,7 +147,6 @@ const HistoriesBet = () => {
         <div>{new Date(row?.createdAt).toLocaleString()}</div>
       ),
     },
-
   ];
 
   const handleWithdraw = async (transId: string, isResolve: boolean) => {
@@ -225,6 +247,3 @@ const HistoriesBet = () => {
 };
 
 export default HistoriesBet;
-
-
-

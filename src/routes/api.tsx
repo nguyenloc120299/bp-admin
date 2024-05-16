@@ -13,5 +13,6 @@ export const apiRoutes = {
   historyBet:`${API_URL}/histories-bet`,
   updateUser:`${API_URL}/update-user`,
   getAdmin:`${API_URL}/admin`,
-  getAnalyticData:`${API_URL}/analytic`
+  getAnalyticData:`${API_URL}/analytic`,
+  updateBet:`${API_URL}/update-bet`
 };

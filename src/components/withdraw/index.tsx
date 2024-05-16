@@ -5,7 +5,7 @@ import {
   RequestData,
   ProDescriptions,
 } from '@ant-design/pro-components';
-import { BreadcrumbProps, Button, Modal, Spin, Tag, notification } from 'antd';
+import { BreadcrumbProps, Button, Tag, notification } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { FiUsers } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -257,7 +257,7 @@ const Withdraw = () => {
               },
             })
             .then((response) => {
-              const data: any = response.data.data;
+              const data: any = response.data.data.withdrawls;
 
               return {
                 data,
