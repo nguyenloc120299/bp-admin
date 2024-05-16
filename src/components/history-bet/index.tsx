@@ -218,7 +218,7 @@ const HistoriesBet = () => {
               },
             })
             .then((response) => {
-              const data: any = response.data.data;
+              const data: any = response.data.data.histories;
 
               return {
                 data,

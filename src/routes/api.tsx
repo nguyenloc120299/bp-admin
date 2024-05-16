@@ -14,5 +14,6 @@ export const apiRoutes = {
   updateUser:`${API_URL}/update-user`,
   getAdmin:`${API_URL}/admin`,
   getAnalyticData:`${API_URL}/analytic`,
-  updateBet:`${API_URL}/update-bet`
+  updateBet:`${API_URL}/update-bet`,
+  dashboarData:`${API_URL}/dashboard`
 };

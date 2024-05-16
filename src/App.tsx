@@ -36,11 +36,11 @@ function App() {
   };
 
   useEffect(() => {
-    if (!state.admin?.admin) {
+    if (!state.admin?.admin) {                                                              
       getAdmin();
     }
   }, [state.admin]);
-  useEffect(() => {
+  useEffect(() => { 
     const socket = io(`${import.meta.env.VITE_SOCKET_URL}`);
     if (state.admin?.admin) socket.emit("joinApp", state.admin?.admin);
     handleSetSocket(socket);
