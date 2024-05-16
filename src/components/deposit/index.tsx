@@ -188,77 +188,10 @@ const Deposit = () => {
         <div>{new Date(row?.createdAt).toLocaleString()}</div>
       ),
     },
-    {
-      title: 'Action',
-      align: 'center',
-      key: 'option',
-      fixed: 'right',
-      render: (_, row: User) => [
-        <TableDropdown
-          key="actionGroup"
-          onSelect={(key) => handleActionOnSelect(key, row)}
-          menus={[
-            {
-              key: ActionKey.DELETE,
-              name: (
-                <Space>
-                  <DeleteOutlined />
-                  Delete
-                </Space>
-              ),
-            },
-          ]}
-        >
-          <Icon component={CiCircleMore} className="text-primary text-xl" />
-        </TableDropdown>,
-      ],
-    },
+ 
   ];
 
-  const handleActionOnSelect = (key: string, user: any) => {
-    if (key === ActionKey.DELETE) {
-      handleDeleteUser(user);
-    }
-  };
 
-  const showDeleteConfirmation = (user: User) => {
-    modal.confirm({
-      title: 'Are you sure to delete this user?',
-      icon: <ExclamationCircleOutlined />,
-      content: (
-        <ProDescriptions column={1} title=" ">
-          <ProDescriptions.Item valueType="avatar" label="Avatar">
-            {user.avatar}
-          </ProDescriptions.Item>
-          <ProDescriptions.Item valueType="text" label="Name">
-            {user.first_name} {user.last_name}
-          </ProDescriptions.Item>
-          <ProDescriptions.Item valueType="text" label="Email">
-            {user.email}
-          </ProDescriptions.Item>
-        </ProDescriptions>
-      ),
-      okButtonProps: {
-        className: 'bg-primary',
-      },
-      onOk: () => {
-        return http
-          .delete(`${apiRoutes.users}/${user.id}`)
-          .then(() => {
-            showNotification(
-              'Success',
-              NotificationType.SUCCESS,
-              'User is deleted.'
-            );
-
-            actionRef.current?.reloadAndRest?.();
-          })
-          .catch((error) => {
-            handleErrorResponse(error);
-          });
-      },
-    });
-  };
 
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
