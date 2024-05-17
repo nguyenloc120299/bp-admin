@@ -12,8 +12,9 @@ export const apiRoutes = {
   handleWithdraw:`${API_URL}/handle-withdraw`,
   historyBet:`${API_URL}/histories-bet`,
   updateUser:`${API_URL}/update-user`,
-  getAdmin:`${API_URL}/admin`,
+  getAdmin:`${API_URL}/profile`,
   getAnalyticData:`${API_URL}/analytic`,
   updateBet:`${API_URL}/update-bet`,
-  dashboarData:`${API_URL}/dashboard`
+  dashboarData:`${API_URL}/dashboard`,
+ 
 };

@@ -9,6 +9,7 @@ import { RootState, store } from './store';
 import http from './utils/http';
 import { useDispatch } from 'react-redux';
 import { login, logout } from './store/slices/adminSlice';
+import { apiRoutes } from './routes/api';
 
 function App() {
   const context = useContext(DataContext);
@@ -19,7 +20,7 @@ function App() {
 
   const getAdmin = async () => {
     try {
-      const res = await http.get('/admin');
+      const res = await http.get(apiRoutes.getAdmin);
       if (res && res.data) {
         dispatch(
           login({
@@ -36,9 +37,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (!state.admin?.admin) {                                                              
-      getAdmin();
-    }
+    getAdmin();
   }, [state.admin]);
   useEffect(() => { 
     const socket = io(`${import.meta.env.VITE_SOCKET_URL}`);

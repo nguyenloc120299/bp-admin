@@ -216,12 +216,12 @@ const Withdraw = () => {
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
 
-      <div className="flex gap-10 items-center">
-        <div className="flex items-center text-lg font-bold text-red-500 my-6 gap-2">
+      <div className="flex lg:gap-10 gap-3 items-center flex-wrap">
+        <div className="flex items-center text-lg font-bold text-red-500 lg:my-6 gap-2">
           <p>Tổng usdt rút: </p>
           <p>{" "} {formatNumber(-totalWithdraw?.totalValueWithdraw)} USDT</p>
         </div>
-        <div className="flex items-center text-lg font-bold text-green-500 my-6 gap-2">
+        <div className="flex items-center text-lg font-bold text-green-500 lg:my-6 gap-2">
           <p>Tổng tiền rút: </p>
           <p>{" "} {formatNumber(totalWithdraw?.totalValueFiatWithdraw)} VNĐ</p>
         </div>

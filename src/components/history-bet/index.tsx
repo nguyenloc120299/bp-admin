@@ -62,7 +62,7 @@ const HistoriesBet = () => {
       align: 'center',
       ellipsis: true,
       render: (_, row: any) => (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 ">
           <div className="flex items-center justify-between gap-1">
             <div>ID:</div>
             <div>{row?.user?._id}</div>
@@ -176,13 +176,13 @@ const HistoriesBet = () => {
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
-
-      <div className="flex gap-10 items-center">
-        <div className="flex items-center text-lg font-bold text-red-500 my-6 gap-2">
+ 
+      <div className="flex lg:gap-10 gap-3 items-center flex-wrap">
+        <div className="flex items-center text-lg font-bold text-red-500 lg:my-6 gap-2">
           <p>Tổng usdt rút: </p>
           <p> {formatNumber(-totalWithdraw?.totalValueWithdraw)} USDT</p>
         </div>
-        <div className="flex items-center text-lg font-bold text-green-500 my-6 gap-2">
+        <div className="flex items-center text-lg font-bold text-green-500 lg:my-6 gap-2">
           <p>Tổng tiền rút: </p>
           <p> {formatNumber(totalWithdraw?.totalValueFiatWithdraw)} VNĐ</p>
         </div>

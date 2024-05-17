@@ -37,7 +37,7 @@ const Dashboard = () => {
   },[])
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-3'>
+      <div className='grid grid-cols-2 lg:grid-cols-4 gap-3'>
         <Card title="User" className='shadow-md'>
             <div className='flex gap-2 items-center'>
                 <div>

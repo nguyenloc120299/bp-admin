@@ -160,6 +160,17 @@ const Deposit = () => {
       ),
     },
     {
+      title: 'Ghi chú',
+      sorter: false,
+      align: 'center',
+      ellipsis: true,
+      render: (_, row: any) => (
+        <div className="flex flex-col gap-1 text-center">
+          {row?.note ? row?.note : '-'}
+        </div>
+      ),
+    },
+    {
       title: 'Trạng thái',
       sorter: false,
       align: 'center',
@@ -188,21 +199,18 @@ const Deposit = () => {
         <div>{new Date(row?.createdAt).toLocaleString()}</div>
       ),
     },
- 
   ];
-
-
 
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
-      <div className="flex gap-10 items-center">
-        <div className="flex items-center text-lg font-bold text-red-500 my-6 gap-2">
+      <div className="flex gap-3 lg:gap-10 items-center flex-wrap">
+        <div className="flex items-center text-lg font-bold text-red-500 lg:my-6 gap-2">
           <p>Tổng USDT Nạp: </p>
-          <p>{" "} {formatNumber(totalDeposit?.totalValueDeposit)} USDT</p>
+          <p> {formatNumber(totalDeposit?.totalValueDeposit)} USDT</p>
         </div>
-        <div className="flex items-center text-lg font-bold text-green-500 my-6 gap-2">
+        <div className="flex items-center text-lg font-bold text-green-500 lg:my-6 gap-2">
           <p>Tổng tiền nạp: </p>
-          <p>{" "} {formatNumber(totalDeposit?.totalValueFiat)} VNĐ</p>
+          <p> {formatNumber(totalDeposit?.totalValueFiat)} VNĐ</p>
         </div>
       </div>
 
