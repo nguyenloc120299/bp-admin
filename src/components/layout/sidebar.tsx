@@ -1,6 +1,6 @@
 import { webRoutes } from '../../routes/web';
 import { BiHomeAlt2 } from 'react-icons/bi';
-import Icon, { UserOutlined, InfoCircleOutlined,PayCircleFilled,HistoryOutlined, BarChartOutlined } from '@ant-design/icons';
+import Icon, { UserOutlined, InfoCircleOutlined, CheckCircleOutlined, PayCircleFilled, HistoryOutlined, BarChartOutlined } from '@ant-design/icons';
 
 export const sidebar = [
   {
@@ -14,6 +14,12 @@ export const sidebar = [
     key: webRoutes.users,
     name: 'Người dùng',
     icon: <UserOutlined />,
+  },
+  {
+    path: webRoutes.kyc,
+    key: webRoutes.kyc,
+    name: 'Xác minh',
+    icon: <CheckCircleOutlined />,
   },
   {
     path: webRoutes.deposit,

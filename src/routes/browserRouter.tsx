@@ -14,6 +14,7 @@ import Deposit from '../components/deposit';
 import Withdraw from '../components/withdraw';
 import HistoriesBet from '../components/history-bet';
 import Bet from '../components/bet';
+import UserKyc from '../components/kyc';
 
 const errorElement = <ErrorPage />;
 const fallbackElement = <ProgressBar />;
@@ -60,6 +61,10 @@ export const browserRouter = createBrowserRouter([
       {
         path: webRoutes.users,
         element: <Users />,
+      },
+      {
+        path: webRoutes.kyc,
+        element: <UserKyc />,
       },
       {
         path: webRoutes.deposit,

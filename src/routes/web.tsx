@@ -9,4 +9,5 @@ export const webRoutes = {
   history_bet: '/histories-bet',
   about: '/about',
   bet: '/bet',
+  kyc: '/kyc',
 };
