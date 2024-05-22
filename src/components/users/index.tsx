@@ -159,11 +159,15 @@ const Users = () => {
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>Demo:</div>
-            <div className="text-yellow-700 font-bold">{row?.demo_balance}</div>
+            <div className="text-yellow-700 font-bold">{formatNumber(row?.demo_balance)}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>Thực:</div>
-            <div className="text-yellow-700 font-bold">{row?.real_balance}</div>
+            <div className="text-yellow-700 font-bold">{formatNumber(row?.real_balance)}</div>
+          </div>
+          <div className="flex items-center justify-between gap-1">
+            <div>Hoa hồng nhận:</div>
+            <div className="text-blue-800 font-bold">{formatNumber(row?.totalProfitRef)}</div>
           </div>
         </div>
       ),
