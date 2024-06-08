@@ -13,6 +13,7 @@ import {
   Input,
   InputNumber,
   Modal,
+  Select,
   Space,
   Switch,
   Tabs,
@@ -35,12 +36,14 @@ import Icon, { DeleteOutlined } from '@ant-design/icons';
 import { formatNumber, shortenEthAddress } from '../../utils/helpers';
 import useCopyToClipboard from '../hooks/useCopyClipboard';
 import LoadingScreen from '../common/LoadingScreen';
+import { Option } from 'antd/es/mentions';
 
 enum ActionKey {
   DELETE = 'delete',
   EDIT = 'edit',
   LOCK = 'lock',
   BALANCE = 'balance',
+  VIP = 'vip'
 }
 
 const breadcrumb: BreadcrumbProps = {
@@ -166,8 +169,16 @@ const Users = () => {
             <div className="text-yellow-700 font-bold">{formatNumber(row?.real_balance)}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Hoa hồng nhận:</div>
+            <div>VIP:</div>
+            <div className="text-green-700 font-bold">{row?.level_vip || 1}</div>
+          </div>
+          <div className="flex items-center justify-between gap-1">
+            <div>Tổng hoa hồng nhận:</div>
             <div className="text-blue-800 font-bold">{formatNumber(row?.totalProfitRef)}</div>
+          </div>
+          <div className="flex items-center justify-between gap-1">
+            <div>Tổng hoa hồng chưa rút:</div>
+            <div className="text-blue-800 font-bold">{formatNumber(row?.ref_balance)}</div>
           </div>
         </div>
       ),
@@ -313,6 +324,7 @@ const Users = () => {
                 </Space>
               ),
             },
+
           ]}
         >
           <Icon component={CiCircleMore} className="text-primary text-xl" />
@@ -383,6 +395,25 @@ const Users = () => {
             </Form.Item>
             <Form.Item name={'password'} label="Mật khẩu" className="mb-3">
               <Input placeholder="Nhập mật khẩu" />
+            </Form.Item>
+            <Form.Item name='level_vip' label="VIP" className='mb-3'>
+              <Select>
+                <Option value={"1"}>
+                  VIP 1
+                </Option>
+                <Option value={"2"}>
+                  VIP 2
+                </Option>
+                <Option value={"3"}>
+                  VIP 3
+                </Option>
+                <Option value={"4"}>
+                  VIP 4
+                </Option>
+                <Option value={"5"}>
+                  VIP 5
+                </Option>
+              </Select>
             </Form.Item>
             <small className="mb-3">Phương thức thanh toán</small>
             <Form.Item
@@ -473,7 +504,7 @@ const Users = () => {
                     onFinish={({ amount }) => {
                       const real_balance =
                         parseFloat(balanceUser.real_balance) + parseInt(amount);
-                      handleUpdateUser({ real_balance,amount_balance: parseInt(amount)}, balanceUser);
+                      handleUpdateUser({ real_balance, amount_balance: parseInt(amount) }, balanceUser);
                     }}
                   >
                     <Form.Item className="mb-3" name={'amount'}>
@@ -496,10 +527,10 @@ const Users = () => {
                   <Form
                     className="max-w-[300px]"
                     onFinish={({ amount }) => {
-                      if( parseFloat(balanceUser.real_balance) <  parseInt(amount)) return message.error("Số tiền trong tài khoản không đủ")
+                      if (parseFloat(balanceUser.real_balance) < parseInt(amount)) return message.error("Số tiền trong tài khoản không đủ")
                       const real_balance =
                         parseFloat(balanceUser.real_balance) - parseInt(amount);
-                      handleUpdateUser({ real_balance,amount_balance: - parseInt(amount) }, balanceUser);
+                      handleUpdateUser({ real_balance, amount_balance: - parseInt(amount) }, balanceUser);
                     }}
                   >
                     <Form.Item className="mb-3" name={'amount'}>
