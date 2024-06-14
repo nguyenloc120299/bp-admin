@@ -147,7 +147,7 @@ const Deposit = () => {
           <div className="flex items-center justify-between gap-1">
             <div>Tổng tiền:</div>
             <div className="text-yellow-700 font-bold">
-              {formatNumber(row?.fiat_amount)} VND
+              {formatNumber(row?.fiat_amount?.toFixed(0))} VND
             </div>
           </div>
           <div className="flex items-center justify-between gap-1">
