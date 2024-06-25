@@ -36,19 +36,19 @@ export const sidebar = [
   {
     path: webRoutes.history_bet,
     key: webRoutes.history_bet,
-    name: 'Lịch sử cược',
+    name: 'Giao dịch',
     icon: <HistoryOutlined />,
   },
-  {
-    path: webRoutes.bet,
-    key: webRoutes.bet,
-    name: 'Bẻ cược',
-    icon: <BarChartOutlined />,
-  },
-  {
-    path: webRoutes.about,
-    key: webRoutes.about,
-    name: 'About',
-    icon: <InfoCircleOutlined />,
-  },
+  // {
+  //   path: webRoutes.bet,
+  //   key: webRoutes.bet,
+  //   name: 'Bẻ cược',
+  //   icon: <BarChartOutlined />,
+  // },
+  // {
+  //   path: webRoutes.about,
+  //   key: webRoutes.about,
+  //   name: 'About',
+  //   icon: <InfoCircleOutlined />,
+  // },
 ];

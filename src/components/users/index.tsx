@@ -127,24 +127,6 @@ const Users = () => {
               {formatNumber(row?.totalWithdraw)}$
             </div>
           </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>***Tổng chơi:</div>
-            <div className="text-yellow-600 font-bold">
-              {row?.countTotalBet}
-            </div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>***Tổng thắng:</div>
-            <div className="text-green-600 font-bold">{row?.countTotalWin}</div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>***Tổng thua:</div>
-            <div className="text-red-600 font-bold">{row?.countTotalLose}</div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>***Lời:</div>
-            <div className="text-green-900 font-bold">{row?.totalValue}$</div>
-          </div>
         </div>
       ),
     },
@@ -157,74 +139,22 @@ const Users = () => {
       render: (_, row: any) => (
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between gap-1">
-            <div>Nickname:</div>
-            <div className="text-black font-bold">{row?.user_name}</div>
+            <div>Tổng coin holder</div>
+            <div className="text-black font-bold">{row?.tokens?.length}</div>
           </div>
+
           <div className="flex items-center justify-between gap-1">
-            <div>Demo:</div>
-            <div className="text-yellow-700 font-bold">{formatNumber(row?.demo_balance)}</div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Thực:</div>
-            <div className="text-yellow-700 font-bold">{formatNumber(row?.real_balance)}</div>
+            <div>Balance (USDT):</div>
+            <div className="text-yellow-700 font-bold">{formatNumber(row?.real_balance?.toFixed(4))}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>VIP:</div>
             <div className="text-green-700 font-bold">{row?.level_vip || 1}</div>
           </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Tổng hoa hồng nhận:</div>
-            <div className="text-blue-800 font-bold">{formatNumber(row?.totalProfitRef)}</div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Tổng hoa hồng chưa rút:</div>
-            <div className="text-blue-800 font-bold">{formatNumber(row?.ref_balance)}</div>
-          </div>
         </div>
       ),
     },
-    {
-      title: 'Phương thức thanh toán',
-      sorter: false,
-      align: 'center',
-      ellipsis: true,
-      search: false,
-      render: (_, row: any) => (
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center justify-between gap-1">
-            <div>Tên Ngân Hàng:</div>
-            <div className="text-black font-bold">{row?.name_bank || '-'}</div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Số tài khoản:</div>
-            <div className="text-black font-bold">
-              {row?.number_bank || '-'}
-            </div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Tên chủ thẻ:</div>
-            <div className="text-black font-bold">
-              {row?.account_name || '-'}
-            </div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Địa chỉ ví:</div>
-            <div className="text-black font-bold flex items-center gap-1">
-              {row?.address ? shortenEthAddress(row?.address) : '-'}
-              {row?.address && (
-                <FiClipboard
-                  className="text-[12px]"
-                  onClick={() => {
-                    copyToClipboard(row?.address);
-                    message.success('Copied');
-                  }}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      ),
-    },
+
     {
       title: 'Xác thực',
       sorter: false,
@@ -415,31 +345,7 @@ const Users = () => {
                 </Option>
               </Select>
             </Form.Item>
-            <small className="mb-3">Phương thức thanh toán</small>
-            <Form.Item
-              name={'name_bank'}
-              label="Tên Ngân Hàng"
-              className="mb-3"
-            >
-              <Input className="w-full" placeholder="Nhập tên ngân hàng" />
-            </Form.Item>
-            <Form.Item
-              name={'number_bank'}
-              label="Số tài khoản"
-              className="mb-3"
-            >
-              <Input placeholder="Nhập Số tài khoản" />
-            </Form.Item>
-            <Form.Item
-              name={'account_name'}
-              label="Tên chủ thẻ"
-              className="mb-3"
-            >
-              <Input className="w-full" placeholder="Nhập tên chủ thẻ" />
-            </Form.Item>
-            <Form.Item name={'address'} label="Địa chỉ ví" className="mb-3">
-              <Input placeholder="Nhập địa chỉ ví" />
-            </Form.Item>
+
             <Form.Item className="mb-3">
               <Button htmlType="submit">Submit</Button>
             </Form.Item>

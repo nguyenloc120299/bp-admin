@@ -73,7 +73,7 @@ const HistoriesBet = () => {
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>Nickname:</div>
-            <div>{row?.user?.user_name}</div>
+            <div>{row?.user?.user_name || "-"} </div>
           </div>
         </div>
       ),
@@ -87,33 +87,34 @@ const HistoriesBet = () => {
       render: (_, row: any) => (
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between gap-1">
-            <div>Bet Id:</div>
-            <div>{row?.bet_id}</div>
+            <div>Token Id:</div>
+            <div>{row?.token_id || "-"}</div>
+          </div>
+          <div>
+            {
+              row?.token_id ?
+                <img src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${row?.token_id}.png`} width={24} className='rounded-full' />
+                : "-"
+            }
+
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>Loại cược:</div>
             <div>
-              {row?.bet_condition === 'up' ? (
-                <Tag color="success">Mua</Tag>
+              {row?.transaction_type === 'buy_token' ? (
+                <Tag color="green-inverse">Mua</Tag>
               ) : (
-                <Tag color="red">Bán</Tag>
+                <Tag color="red-inverse">Bán</Tag>
               )}
             </div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Số lượng cược:</div>
+            <div>Số lượng (USDT):</div>
             <div>{formatNumber(row?.bet_value)}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Số lượng ăn:</div>
-            <div
-              className={clsx('font-bold', {
-                'text-red-500': row?.value < 0,
-                'text-green-500': row?.value > 0,
-              })}
-            >
-              {formatNumber(row?.value)}
-            </div>
+            <div>Số lượng Coin:</div>
+            <div>{formatNumber(formatNumber(row?.value?.toFixed(5)))}</div>
           </div>
         </div>
       ),
@@ -128,10 +129,10 @@ const HistoriesBet = () => {
           {' '}
           <div className="flex items-center justify-between gap-1">
             {row?.transaction_status === 'pending' ? (
-              <Tag>Đang chờ</Tag>
+              <Tag color='warning'>Limit</Tag>
             ) : (
-              <Tag color={row?.value > 0 ? 'green' : 'red'}>
-                {row?.value > 0 ? 'Thắng' : 'Thua'}
+              <Tag color={'green-inverse'}>
+                Đã khớp
               </Tag>
             )}
           </div>
@@ -176,7 +177,7 @@ const HistoriesBet = () => {
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
- 
+
       <div className="flex lg:gap-10 gap-3 items-center flex-wrap">
         <div className="flex items-center text-lg font-bold text-red-500 lg:my-6 gap-2">
           <p>Tổng usdt rút: </p>

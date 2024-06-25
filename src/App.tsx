@@ -32,18 +32,18 @@ function App() {
     } catch (error) {
       console.log(error);
       dispatch(logout());
-      
+
     }
   };
 
   useEffect(() => {
     getAdmin();
   }, [state.admin]);
-  useEffect(() => { 
-    const socket = io(`${import.meta.env.VITE_SOCKET_URL}`);
-    if (state.admin?.admin) socket.emit("joinApp", state.admin?.admin);
-    handleSetSocket(socket);
-  }, [state.admin?.admin]);
+  // useEffect(() => { 
+  //   const socket = io(`${import.meta.env.VITE_SOCKET_URL}`);
+  //   if (state.admin?.admin) socket.emit("joinApp", state.admin?.admin);
+  //   handleSetSocket(socket);
+  // }, [state.admin?.admin]);
 
   return (
     <div className="fade-in">
