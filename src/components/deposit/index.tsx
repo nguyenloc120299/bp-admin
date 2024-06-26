@@ -6,9 +6,11 @@ import {
   TableDropdown,
   ProDescriptions,
 } from '@ant-design/pro-components';
+import { CheckOutlined } from '@ant-design/icons';
 import {
   Avatar,
   BreadcrumbProps,
+  Button,
   Modal,
   Space,
   Spin,
@@ -29,7 +31,7 @@ import {
 } from '../../utils';
 import http from '../../utils/http';
 import BasePageContainer from '../layout/PageContainer';
-
+import tokens from '../../utils/tokens.json'
 import Icon, {
   ExclamationCircleOutlined,
   DeleteOutlined,
@@ -59,37 +61,29 @@ const Deposit = () => {
   const [totalDeposit, setTotalDeposit] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
-  const getPaymentType = (payment_type: string) => {
-    switch (payment_type) {
-      case '1':
-        return 'Ngân hàng';
-      case '2':
-        return 'MoMo';
-      case '3':
-        return 'Zalopay';
 
-      default:
-        break;
-    }
-  };
-  const handleDeleteUser = async (user: any) => {
+  const handleGetToken = (tokenId: number) => {
+    return tokens.find((i) => i.id === tokenId)
+  }
+
+  const handleWithdraw = async (transId: string, isResolve: boolean) => {
     setLoading(true);
     try {
-      const res = await http.delete(apiRoutes.deleteUser, {
-        data: {
-          userId: user?._id,
-        },
+      const res = await http.post(apiRoutes.handleDeposit, {
+        transId,
+        isResolve,
       });
       if (res && res.data) {
         notification.success({
-          message: res?.data?.message,
+          message: res.data?.message,
           duration: 10,
         });
+
         actionRef?.current?.reload();
       }
     } catch (error: any) {
       notification.error({
-        message: error?.response?.data?.message || 'Có lỗi xảy ra',
+        message: error?.response?.data?.message,
         duration: 10,
       });
     }
@@ -124,8 +118,8 @@ const Deposit = () => {
             <div>{row?.user?.email}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Nickname:</div>
-            <div>{row?.user?.user_name}</div>
+            <div>Id:</div>
+            <div>{row?.user?._id}</div>
           </div>
         </div>
       ),
@@ -141,19 +135,20 @@ const Deposit = () => {
           <div className="flex items-center justify-between gap-1">
             <div>Số lượng:</div>
             <div className="text-yellow-700 font-bold">
-              {formatNumber(row?.value)} USDT
+              {formatNumber(row?.value)} {handleGetToken(row?.token_id)?.symbol}
             </div>
           </div>
+
           <div className="flex items-center justify-between gap-1">
-            <div>Tổng tiền:</div>
-            <div className="text-yellow-700 font-bold">
-              {formatNumber(row?.fiat_amount)} VND
-            </div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Phương thức thanh toán:</div>
+            <div>Mạng lưới:</div>
             <div className="text-green-600 font-bold">
-              {getPaymentType(row?.payment_type)}
+              {row?.network}
+            </div>
+          </div>
+          <div className="flex items-center justify-between gap-1">
+            <div>Địa chỉ nạp:</div>
+            <div className="text-green-600 font-bold">
+              {row?.to}
             </div>
           </div>
         </div>
@@ -189,6 +184,35 @@ const Deposit = () => {
           </div>
         </div>
       ),
+    },
+    {
+      title: 'Action',
+      align: 'center',
+      key: 'option',
+      fixed: 'right',
+      render: (_, row: any) =>
+        row?.transaction_status === 'pending' ? (
+          <>
+            <div className="flex items-center gap-1">
+              <Button
+                className="!bg-green-600 text-[#fff] font-[700]"
+                onClick={() => handleWithdraw(row?._id, true)}
+              >
+                Duyệt
+              </Button>
+              <Button
+                className="!bg-red-600 text-[#fff] font-[700]"
+                onClick={() => handleWithdraw(row?._id, false)}
+              >
+                Từ chối
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className='font-bold'>
+            <CheckOutlined />
+          </div>
+        ),
     },
     {
       title: 'Ngày tạo',

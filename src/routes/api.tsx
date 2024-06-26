@@ -12,6 +12,7 @@ export const apiRoutes = {
   handleKyc: `${API_URL}/user-kyc`,
   getStatisticsPayment: `${API_URL}/statistics-payment`,
   handleWithdraw: `${API_URL}/handle-withdraw`,
+  handleDeposit: `${API_URL}/handle-deposit`,
   historyBet: `${API_URL}/histories-bet`,
   updateUser: `${API_URL}/update-user`,
   getAdmin: `${API_URL}/profile`,
