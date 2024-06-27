@@ -73,8 +73,8 @@ const Withdraw = () => {
             <div>{row?.user?.email}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Nickname:</div>
-            <div>{row?.user?.user_name}</div>
+            <div>ID:</div>
+            <div>{row?.user?._id}</div>
           </div>
         </div>
       ),
@@ -93,15 +93,10 @@ const Withdraw = () => {
               {formatNumber(row?.value)} USDT
             </div>
           </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Tổng tiền:</div>
-            <div className="text-yellow-700 font-bold">
-              {formatNumber(row?.fiat_amount)} VNĐ
-            </div>
-          </div>
+         
           <div className="flex items-center justify-between gap-1">
             <div>Phương thức thanh toán:</div>
-            <div className="text-green-600 font-bold">Ngân hàng</div>
+            <div className="text-green-600 font-bold">Crypto</div>
           </div>
         </div>
       ),
@@ -114,17 +109,14 @@ const Withdraw = () => {
       render: (_, row: any) => (
         <>
           <div className="flex items-center justify-between gap-1">
-            <div>Tên ngân hàng:</div>
-            <div className=" font-bold">{row?.user?.name_bank}</div>
+            <div>Địa chỉ nhận:</div>
+            <div className=" font-bold">{row?.from}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Số tài khoản:</div>
-            <div className=" font-bold">{row?.user?.number_bank}</div>
+            <div>Mạng lưới:</div>
+            <div className=" font-bold">{row?.network}</div>
           </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Tên chủ thẻ:</div>
-            <div className=" font-bold">{row?.user?.account_name}</div>
-          </div>
+          
         </>
       ),
     },
@@ -137,12 +129,12 @@ const Withdraw = () => {
         <div className="flex flex-col gap-1">
           {' '}
           <div className="flex items-center justify-between gap-1">
-            {row?.transaction_status === 'finish' ? (
-              <Tag color="success">Hoàn thành</Tag>
+          {row?.transaction_status === 'finish' ? (
+              <Tag color="green-inverse">Done</Tag>
             ) : row?.transaction_status === 'pending' ? (
-              <Tag color="warning">Đang chờ</Tag>
+              <Tag color="orange-inverse">Pending</Tag>
             ) : (
-              <Tag color="red">Đã hủy</Tag>
+              <Tag color="red-inverse">Cancel</Tag>
             )}
           </div>
         </div>
@@ -216,16 +208,7 @@ const Withdraw = () => {
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
 
-      <div className="flex lg:gap-10 gap-3 items-center flex-wrap">
-        <div className="flex items-center text-lg font-bold text-red-500 lg:my-6 gap-2">
-          <p>Tổng usdt rút: </p>
-          <p>{" "} {formatNumber(-totalWithdraw?.totalValueWithdraw)} USDT</p>
-        </div>
-        <div className="flex items-center text-lg font-bold text-green-500 lg:my-6 gap-2">
-          <p>Tổng tiền rút: </p>
-          <p>{" "} {formatNumber(totalWithdraw?.totalValueFiatWithdraw)} VNĐ</p>
-        </div>
-      </div>
+      
 
       <ProTable
         columns={columns}

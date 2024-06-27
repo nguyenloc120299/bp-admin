@@ -37,6 +37,7 @@ import Icon, {
   DeleteOutlined,
 } from '@ant-design/icons';
 import { formatNumber } from '../../utils/helpers';
+import LoadingScreen from '../common/LoadingScreen';
 
 enum ActionKey {
   DELETE = 'delete',
@@ -135,20 +136,20 @@ const Deposit = () => {
           <div className="flex items-center justify-between gap-1">
             <div>Số lượng:</div>
             <div className="text-yellow-700 font-bold">
-              {formatNumber(row?.value)} {handleGetToken(row?.token_id)?.symbol}
+              {formatNumber(row?.value)} {handleGetToken(row?.token_id)?.symbol || "USDT"}
             </div>
           </div>
 
           <div className="flex items-center justify-between gap-1">
             <div>Mạng lưới:</div>
             <div className="text-green-600 font-bold">
-              {row?.network}
+              {row?.network || "-"}
             </div>
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>Địa chỉ nạp:</div>
             <div className="text-green-600 font-bold">
-              {row?.to}
+              {row?.to || "-"}
             </div>
           </div>
         </div>
@@ -174,12 +175,12 @@ const Deposit = () => {
         <div className="flex flex-col gap-1">
           {' '}
           <div className="flex items-center justify-between gap-1">
-            {row?.transaction_status === 'finish' ? (
-              <Tag color="success">Hoàn thành</Tag>
+          {row?.transaction_status === 'finish' ? (
+              <Tag color="green-inverse">Done</Tag>
             ) : row?.transaction_status === 'pending' ? (
-              <Tag color="warning">Đang chờ</Tag>
+              <Tag color="orange-inverse">Pending</Tag>
             ) : (
-              <Tag color="red">Đã hủy</Tag>
+              <Tag color="red-inverse">Cancel</Tag>
             )}
           </div>
         </div>
@@ -227,17 +228,8 @@ const Deposit = () => {
 
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
-      <div className="flex gap-3 lg:gap-10 items-center flex-wrap">
-        <div className="flex items-center text-lg font-bold text-red-500 lg:my-6 gap-2">
-          <p>Tổng USDT Nạp: </p>
-          <p> {formatNumber(totalDeposit?.totalValueDeposit)} USDT</p>
-        </div>
-        <div className="flex items-center text-lg font-bold text-green-500 lg:my-6 gap-2">
-          <p>Tổng tiền nạp: </p>
-          <p> {formatNumber(totalDeposit?.totalValueFiat)} VNĐ</p>
-        </div>
-      </div>
-
+      
+      <LoadingScreen spinning={loading} />
       <ProTable
         columns={columns}
         cardBordered={false}
