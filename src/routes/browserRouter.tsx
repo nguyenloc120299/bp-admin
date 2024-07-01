@@ -15,6 +15,7 @@ import Withdraw from '../components/withdraw';
 import HistoriesBet from '../components/history-bet';
 import Bet from '../components/bet';
 import UserKyc from '../components/kyc';
+import Setting from '../components/setting';
 
 const errorElement = <ErrorPage />;
 const fallbackElement = <ProgressBar />;
@@ -77,6 +78,10 @@ export const browserRouter = createBrowserRouter([
       {
         path: webRoutes.history_bet,
         element: <HistoriesBet />,
+      },
+      {
+        path: webRoutes.setting,
+        element: <Setting/>,
       },
       {
         path: webRoutes.bet,
