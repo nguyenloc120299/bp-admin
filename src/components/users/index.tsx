@@ -108,7 +108,7 @@ const Users = () => {
             <div>{row?._id}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Email:</div>
+            <div>Tên TK:</div>
             <div>{row?.email}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
@@ -138,14 +138,11 @@ const Users = () => {
       search: false,
       render: (_, row: any) => (
         <div className="flex flex-col gap-1">
-          <div className="flex items-center justify-between gap-1">
-            <div>Tổng coin holder</div>
-            <div className="text-black font-bold">{row?.tokens?.length}</div>
-          </div>
+
 
           <div className="flex items-center justify-between gap-1">
-            <div>Balance (USDT):</div>
-            <div className="text-yellow-700 font-bold">{formatNumber(row?.real_balance?.toFixed(4))}</div>
+            <div>Số dư:</div>
+            <div className="text-yellow-700 font-bold">{formatNumber(row?.real_balance)}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>VIP:</div>

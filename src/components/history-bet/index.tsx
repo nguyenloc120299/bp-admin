@@ -68,7 +68,7 @@ const HistoriesBet = () => {
             <div>{row?.user?._id}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Email:</div>
+            <div>Tên TK:</div>
             <div>{row?.user?.email}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
@@ -87,34 +87,12 @@ const HistoriesBet = () => {
       render: (_, row: any) => (
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between gap-1">
-            <div>Token Id:</div>
-            <div>{row?.token_id || "-"}</div>
-          </div>
-          <div>
-            {
-              row?.token_id ?
-                <img src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${row?.token_id}.png`} width={24} className='rounded-full' />
-                : "-"
-            }
-
+            <div>Bet Id:</div>
+            <div>{row?.bet_id || "-"}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Loại cược:</div>
-            <div>
-              {row?.transaction_type === 'buy_token' ? (
-                <Tag color="green-inverse">Mua</Tag>
-              ) : (
-                <Tag color="red-inverse">Bán</Tag>
-              )}
-            </div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Số lượng (USDT):</div>
-            <div>{formatNumber(row?.bet_value)}</div>
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            <div>Số lượng Coin:</div>
-            <div>{formatNumber(formatNumber(row?.value?.toFixed(5)))}</div>
+            <div>Số lượng cược:</div>
+            <div>{formatNumber(row?.value)}</div>
           </div>
         </div>
       ),
@@ -129,11 +107,16 @@ const HistoriesBet = () => {
           {' '}
           <div className="flex items-center justify-between gap-1">
             {row?.transaction_status === 'pending' ? (
-              <Tag color='warning'>Limit</Tag>
+              <Tag color='warning'>Đang chờ</Tag>
             ) : (
-              <Tag color={'green-inverse'}>
-                Đã khớp
-              </Tag>
+              row?.transaction_status === 'cancel' ?
+                <Tag color={'red-inverse'}>
+                  Thua
+                </Tag>
+                :
+                <Tag color={'green-inverse'}>
+                  Thắng
+                </Tag>
             )}
           </div>
         </div>
@@ -148,6 +131,16 @@ const HistoriesBet = () => {
         <div>{new Date(row?.createdAt).toLocaleString()}</div>
       ),
     },
+    {
+      title: 'Kết thúc',
+      sorter: false,
+      align: 'center',
+      ellipsis: true,
+      render: (_, row: any) => (
+        <div>{new Date(+row?.bet_id).toLocaleString()}</div>
+      ),
+    },
+
   ];
 
   const handleWithdraw = async (transId: string, isResolve: boolean) => {

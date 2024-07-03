@@ -39,12 +39,12 @@ export const sidebar = [
     name: 'Giao dịch',
     icon: <HistoryOutlined />,
   },
-  {
-    path: webRoutes.setting,
-    key: webRoutes.setting,
-    name: 'Cài Đặt',
-    icon: <SettingOutlined />,
-  },
+  // {
+  //   path: webRoutes.setting,
+  //   key: webRoutes.setting,
+  //   name: 'Cài Đặt',
+  //   icon: <SettingOutlined />,
+  // },
   // {
   //   path: webRoutes.bet,
   //   key: webRoutes.bet,
