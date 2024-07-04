@@ -9,6 +9,7 @@ import {
 import {
   Avatar,
   BreadcrumbProps,
+  Button,
   Modal,
   Space,
   Spin,
@@ -16,6 +17,7 @@ import {
   notification,
 } from 'antd';
 import { useEffect, useRef, useState } from 'react';
+import { CheckOutlined } from '@ant-design/icons';
 import { FiUsers } from 'react-icons/fi';
 import { CiCircleMore } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
@@ -199,8 +201,59 @@ const Deposit = () => {
         <div>{new Date(row?.createdAt).toLocaleString()}</div>
       ),
     },
+    {
+      title: 'Action',
+      align: 'center',
+      key: 'option',
+      fixed: 'right',
+      render: (_, row: any) =>
+        row?.transaction_status === 'pending' ? (
+          <>
+            <div className="flex items-center gap-1">
+              <Button
+                className="!bg-green-600 text-[#fff] font-[700]"
+                onClick={() => handleWithRecharge(row?._id, true)}
+              >
+                Duyệt
+              </Button>
+              <Button
+                className="!bg-red-600 text-[#fff] font-[700]"
+                onClick={() => handleWithRecharge(row?._id, false)}
+              >
+                Từ chối
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className="font-bold">
+            <CheckOutlined />
+          </div>
+        ),
+    },
   ];
+  const handleWithRecharge = async (transId: string, isResolve: boolean) => {
+    setLoading(true);
+    try {
+      const res = await http.post(apiRoutes.handleRecharge, {
+        transId,
+        isResolve,
+      });
+      if (res && res.data) {
+        notification.success({
+          message: res.data?.message,
+          duration: 10,
+        });
 
+        actionRef?.current?.reload();
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.response?.data?.message,
+        duration: 10,
+      });
+    }
+    setLoading(false);
+  };
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <div className="flex gap-3 lg:gap-10 items-center flex-wrap">
