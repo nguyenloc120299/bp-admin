@@ -16,6 +16,7 @@ import http from '../../utils/http';
 import { API_URL } from '../../utils';
 import LoadingScreen from '../common/LoadingScreen';
 import { UploadProps } from 'antd/lib/upload';
+import { formatNumber } from '../../utils/helpers';
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -76,14 +77,14 @@ const Setting = () => {
     showUploadList: false,
     onChange(info) {
       if (info.file.status === 'uploading') {
-        setLoading(true)
+        setLoading(true);
       }
       if (info.file.status === 'done') {
         console.log(info.file.response);
         handleUpdateConfig('LOGO_APP', info.file.response?.url);
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
-        setLoading(false)
+        setLoading(false);
       }
     },
   };
@@ -92,41 +93,103 @@ const Setting = () => {
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
       <div className="flex flex-col gap-2">
-        <div className="flex gap-2 items-center">
-          <h3 className="font-bold">Phí Giao Dịch:</h3>
-          <div>{(configs && configs?.FEE_TRADING?.value) || 0}%</div>
-          <Popover
-            trigger={'click'}
-            content={
-              <Form
-                layout="vertical"
-                onFinish={(form: any) =>
-                  handleUpdateConfig('FEE_TRADING', form?.value || 0)
+        <div className="grid grid-cols-2 gap-4">
+          <div  className='flex flex-col gap-3'>
+            <div className="flex gap-2 items-center">
+              <h3 className="font-bold">Số GOM airdrop:</h3>
+              <div>
+                {(configs && formatNumber(configs?.GOM_AIRDROP?.value)) || 0}
+              </div>
+              <Popover
+                trigger={'click'}
+                content={
+                  <Form
+                    layout="vertical"
+                    initialValues={{
+                      value: configs?.GOM_AIRDROP?.value || 0,
+                    }}
+                    onFinish={(form: any) =>
+                      handleUpdateConfig('GOM_AIRDROP', form?.value || 0)
+                    }
+                  >
+                    <Form.Item name={'value'}>
+                      <Input type="number" placeholder="Nhập số GOM airdrop" />
+                    </Form.Item>
+                    <Form.Item>
+                      <Button htmlType="submit">Submit</Button>
+                    </Form.Item>
+                  </Form>
                 }
               >
-                <Form.Item name={'value'}>
-                  <Input type="number" placeholder="Nhập phí giao dịch" />
-                </Form.Item>
-                <Form.Item>
-                  <Button htmlType="submit">Submit</Button>
-                </Form.Item>
-              </Form>
-            }
-          >
-            <Button size="small">Edit Config</Button>
-          </Popover>
-        </div>
-        <div className="flex flex-col justify-start gap-2 items-start">
-          <h3 className="font-bold">Logo App:</h3>
-          <Upload {...props} accept="image/*">
-            <div className="relative">
-              <img
-                src={configs?.LOGO_APP?.value}
-                width={100}
-                className="rounded-md"
-              />
+                <Button size="small">Thay đổi</Button>
+              </Popover>
             </div>
-          </Upload>
+            <div className="flex gap-2 items-center">
+              <h3 className="font-bold">Giá GOM hiện tại:</h3>
+              <div>{(configs && configs?.PRICE_GOM?.value) || 0}$</div>
+              <Popover
+                trigger={'click'}
+                content={
+                  <Form
+                    layout="vertical"
+                    initialValues={{
+                      value: configs?.PRICE_GOM?.value || 0,
+                    }}
+                    onFinish={(form: any) =>
+                      handleUpdateConfig('PRICE_GOM', form?.value || 0)
+                    }
+                  >
+                    <Form.Item name={'value'}>
+                      <Input type="number" placeholder="Nhập số GOM airdrop" />
+                    </Form.Item>
+                    <Form.Item>
+                      <Button htmlType="submit">Submit</Button>
+                    </Form.Item>
+                  </Form>
+                }
+              >
+                <Button size="small">Thay đổi</Button>
+              </Popover>
+            </div>
+          </div>
+          <div className='flex flex-col gap-3'>
+            <div className="flex gap-2 items-center">
+              <h3 className="font-bold">Phí Giao Dịch:</h3>
+              <div>{(configs && configs?.FEE_TRADING?.value) || 0}%</div>
+              <Popover
+                trigger={'click'}
+                content={
+                  <Form
+                    layout="vertical"
+                    onFinish={(form: any) =>
+                      handleUpdateConfig('FEE_TRADING', form?.value || 0)
+                    }
+                  >
+                    <Form.Item name={'value'}>
+                      <Input type="number" placeholder="Nhập phí giao dịch" />
+                    </Form.Item>
+                    <Form.Item>
+                      <Button htmlType="submit">Submit</Button>
+                    </Form.Item>
+                  </Form>
+                }
+              >
+                <Button size="small">Thay đổi</Button>
+              </Popover>
+            </div>
+            <div className="flex flex-col justify-start gap-2 items-start">
+              <h3 className="font-bold">Logo App:</h3>
+              <Upload {...props} accept="image/*">
+                <div className="relative">
+                  <img
+                    src={configs?.LOGO_APP?.value}
+                    width={100}
+                    className="rounded-md"
+                  />
+                </div>
+              </Upload>
+            </div>
+          </div>
         </div>
       </div>
     </BasePageContainer>

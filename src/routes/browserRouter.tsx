@@ -16,6 +16,7 @@ import HistoriesBet from '../components/history-bet';
 import Bet from '../components/bet';
 import UserKyc from '../components/kyc';
 import Setting from '../components/setting';
+import UserRef from '../components/verify-ref';
 
 const errorElement = <ErrorPage />;
 const fallbackElement = <ProgressBar />;
@@ -66,6 +67,10 @@ export const browserRouter = createBrowserRouter([
       {
         path: webRoutes.kyc,
         element: <UserKyc />,
+      },
+      {
+        path: webRoutes.ref,
+        element: <UserRef />,
       },
       {
         path: webRoutes.deposit,

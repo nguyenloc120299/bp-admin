@@ -10,5 +10,6 @@ export const webRoutes = {
   about: '/about',
   bet: '/bet',
   kyc: '/kyc',
-  setting:'/setting'
+  ref: '/ref',
+  setting: '/setting',
 };

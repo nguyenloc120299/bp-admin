@@ -22,6 +22,12 @@ export const sidebar = [
     icon: <CheckCircleOutlined />,
   },
   {
+    path: webRoutes.ref,
+    key: webRoutes.ref,
+    name: 'Xác Nhận Ref',
+    icon: <CheckCircleOutlined />,
+  },
+  {
     path: webRoutes.deposit,
     key: webRoutes.deposit,
     name: 'Nạp tiền',
