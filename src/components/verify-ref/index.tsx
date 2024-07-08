@@ -127,7 +127,7 @@ const UserRef = () => {
                 </Button>
                 <Button
                   className="!bg-red-600 text-[#fff] font-[700]"
-                  onClick={() => handleKycUser(false, row?._id,row)}
+                  onClick={() => handleKycUser(false, row?._id)}
                 >
                   <RiCloseCircleLine />
                 </Button>
