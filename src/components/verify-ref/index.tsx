@@ -42,6 +42,7 @@ const UserRef = () => {
       const res = await http.post(apiRoutes.handleVerifyCTV, {
         isCheck,
         transId,
+
       });
       if (res && res.data) {
         notification.success({
@@ -126,7 +127,7 @@ const UserRef = () => {
                 </Button>
                 <Button
                   className="!bg-red-600 text-[#fff] font-[700]"
-                  onClick={() => handleKycUser(false, row?._id)}
+                  onClick={() => handleKycUser(false, row?._id,row)}
                 >
                   <RiCloseCircleLine />
                 </Button>
