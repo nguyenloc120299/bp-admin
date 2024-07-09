@@ -115,10 +115,7 @@ const UserRef = () => {
               <div className=" font-bold">{formatNumber(row?.value)}$</div>
             </div>
           )}
-          <div className="flex items-center justify-between gap-1">
-            <div>Số dư:</div>
-            <div className=" font-bold">{formatNumber(row?.real_balance)}$</div>
-          </div>
+          
         </>
       ),
     },

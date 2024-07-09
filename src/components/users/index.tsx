@@ -116,11 +116,19 @@ const Users = () => {
             <div>{row?.password}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
+            <div>---Ref Code:</div>
+            <div>{row?.user_name}</div>
+          </div>
+          <div className="flex items-center justify-between gap-1">
+            <div>---Đã nhập mã:</div>
+            <div>{row?.ref_code}</div>
+          </div>
+          {/* <div className="flex items-center justify-between gap-1">
             <div>***Tổng Nạp:</div>
             <div className="text-green-600 font-bold">
               {formatNumber(row?.totalDeposit)}$
             </div>
-          </div>
+          </div> */}
           <div className="flex items-center justify-between gap-1">
             <div>***Tổng Rút:</div>
             <div className="text-green-600 font-bold">
@@ -320,7 +328,7 @@ const Users = () => {
             initialValues={selectedUserEdit}
             onFinish={(form) => handleUpdateUser(form, selectedUserEdit)}
           >
-            <Form.Item name={'user_name'} label="Nick Name" className="mb-3">
+            <Form.Item name={'last_name'} label="Nick Name" className="mb-3">
               <Input placeholder="Nhập Nick Name" />
             </Form.Item>
             <Form.Item name={'password'} label="Mật khẩu" className="mb-3">
