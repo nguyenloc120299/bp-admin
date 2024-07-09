@@ -42,7 +42,6 @@ const UserRef = () => {
       const res = await http.post(apiRoutes.handleVerifyCTV, {
         isCheck,
         transId,
-
       });
       if (res && res.data) {
         notification.success({
@@ -77,6 +76,14 @@ const UserRef = () => {
             <div>UID :</div>
             <div>{row?.user?._id}</div>
           </div>
+          <div className="flex items-center justify-between gap-1 text-yellow-800 font-bold">
+            <div>Mã giới thiệu :</div>
+            <div>{row?.user?.user_name}</div>
+          </div>
+          <div className="flex items-center justify-between gap-1 font-bold text-green-800">
+            <div>Đã nhập mã :</div>
+            <div>{row?.user?.ref_code}</div>
+          </div>
         </div>
       ),
     },
@@ -88,10 +95,26 @@ const UserRef = () => {
       ellipsis: true,
       render: (_, row: any) => (
         <>
+          {' '}
           <div className="flex items-center justify-between gap-1">
-            <div>UID đã gửi :</div>
-            <div className=" font-bold">{row?.note}</div>
+            <div>Yêu cầu :</div>
+            <div className=" font-bold text-yellow-600">
+              {row?.transaction_type === 'ref' && 'Cộng tiền hoa hồng'}
+              {row?.transaction_type === 'verify_ref' && 'Xác nhận nhiệm vụ'}
+            </div>
           </div>
+          {row?.transaction_type === 'verify_ref' && (
+            <div className="flex items-center justify-between gap-1">
+              <div>UID đã gửi :</div>
+              <div className=" font-bold">{row?.note}</div>
+            </div>
+          )}
+          {row?.transaction_type === 'ref' && (
+            <div className="flex items-center justify-between gap-1">
+              <div>Số tiền hoa hồng :</div>
+              <div className=" font-bold">{formatNumber(row?.value)}$</div>
+            </div>
+          )}
           <div className="flex items-center justify-between gap-1">
             <div>Số dư:</div>
             <div className=" font-bold">{formatNumber(row?.real_balance)}$</div>
