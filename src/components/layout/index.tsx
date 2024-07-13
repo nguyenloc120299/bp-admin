@@ -19,7 +19,7 @@ const Layout = () => {
 
   const defaultProps: ProLayoutProps = {
     title: CONFIG.appName,
-    logo: '/icon.png',
+    logo: '/logo.png',
     fixedHeader: true,
     fixSiderbar: true,
     layout: CONFIG.theme.sidebarLayout,

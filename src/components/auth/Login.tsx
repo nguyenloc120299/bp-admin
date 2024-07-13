@@ -49,7 +49,7 @@ const Login = () => {
       .then((response: any) => {
         const admin: Admin = {
           token: response.data?.data?.tokens.accessToken,
-          admin:response.data?.data?.user
+          admin: response.data?.data?.user
         };
         dispatch(login(admin));
       })
@@ -64,9 +64,9 @@ const Login = () => {
 
   return (
     <Fragment>
-      <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-left text-opacity-30 tracking-wide">
-        Admin Login
-      </h1>
+      <div className='flex justify-center items-center'>
+        <img src={'/logo.png'} className='w-[150px]' />
+      </div>
       <Form
         className="space-y-4 md:space-y-6"
         form={form}
@@ -74,7 +74,7 @@ const Login = () => {
         onFinish={onSubmit}
         layout={'vertical'}
         requiredMark={false}
-        
+
       >
         <div>
           <Form.Item

@@ -93,10 +93,10 @@ const Withdraw = () => {
               {formatNumber(row?.value)} USDT
             </div>
           </div>
-         
+
           <div className="flex items-center justify-between gap-1">
             <div>Phương thức thanh toán:</div>
-            <div className="text-green-600 font-bold">Crypto</div>
+            <div className="text-green-600 font-bold">Ngân Hàng</div>
           </div>
         </div>
       ),
@@ -109,14 +109,17 @@ const Withdraw = () => {
       render: (_, row: any) => (
         <>
           <div className="flex items-center justify-between gap-1">
-            <div>Địa chỉ nhận:</div>
-            <div className=" font-bold">{row?.from}</div>
+            <div>STK:</div>
+            <div className=" font-bold">{row?.user?.number_bank}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Mạng lưới:</div>
-            <div className=" font-bold">{row?.network}</div>
+            <div>Tên chủ thẻ:</div>
+            <div className=" font-bold">{row?.user?.account_name}</div>
           </div>
-          
+          <div className="flex items-center justify-between gap-1">
+            <div>Tên Ngân Hàng:</div>
+            <div className=" font-bold">{row?.user?.name_bank}</div>
+          </div>
         </>
       ),
     },
@@ -129,7 +132,7 @@ const Withdraw = () => {
         <div className="flex flex-col gap-1">
           {' '}
           <div className="flex items-center justify-between gap-1">
-          {row?.transaction_status === 'finish' ? (
+            {row?.transaction_status === 'finish' ? (
               <Tag color="green-inverse">Done</Tag>
             ) : row?.transaction_status === 'pending' ? (
               <Tag color="orange-inverse">Pending</Tag>
@@ -174,7 +177,7 @@ const Withdraw = () => {
           </>
         ) : (
           <div className='font-bold'>
-            <CheckOutlined/>
+            <CheckOutlined />
           </div>
         ),
     },
@@ -208,7 +211,7 @@ const Withdraw = () => {
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
 
-      
+
 
       <ProTable
         columns={columns}
