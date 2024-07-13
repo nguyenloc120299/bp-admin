@@ -16,6 +16,7 @@ import HistoriesBet from '../components/history-bet';
 import Bet from '../components/bet';
 import UserKyc from '../components/kyc';
 import Setting from '../components/setting';
+import Code from '../components/code';
 
 const errorElement = <ErrorPage />;
 const fallbackElement = <ProgressBar />;
@@ -81,7 +82,7 @@ export const browserRouter = createBrowserRouter([
       },
       {
         path: webRoutes.setting,
-        element: <Setting/>,
+        element: <Setting />,
       },
       {
         path: webRoutes.bet,
@@ -90,6 +91,10 @@ export const browserRouter = createBrowserRouter([
       {
         path: webRoutes.about,
         element: <About />,
+      },
+      {
+        path: webRoutes.code,
+        element: <Code />,
       },
     ],
   },

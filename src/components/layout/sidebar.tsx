@@ -1,6 +1,6 @@
 import { webRoutes } from '../../routes/web';
 import { BiHomeAlt2 } from 'react-icons/bi';
-import Icon, { UserOutlined, SettingOutlined, CheckCircleOutlined, PayCircleFilled, HistoryOutlined, BarChartOutlined } from '@ant-design/icons';
+import Icon, { UserOutlined, SettingOutlined, CheckCircleOutlined, PayCircleFilled, HistoryOutlined, BarChartOutlined, CodeOutlined } from '@ant-design/icons';
 
 export const sidebar = [
   {
@@ -38,6 +38,12 @@ export const sidebar = [
     key: webRoutes.history_bet,
     name: 'Giao dịch',
     icon: <HistoryOutlined />,
+  },
+  {
+    path: webRoutes.code,
+    key: webRoutes.code,
+    name: 'Mã giới thiệu',
+    icon: <CodeOutlined />,
   },
   // {
   //   path: webRoutes.setting,
