@@ -38,6 +38,7 @@ import Icon, {
 } from '@ant-design/icons';
 import { formatNumber } from '../../utils/helpers';
 import LoadingScreen from '../common/LoadingScreen';
+import { useTranslation } from 'react-i18next';
 
 enum ActionKey {
   DELETE = 'delete',
@@ -61,7 +62,7 @@ const Deposit = () => {
   const [modal, modalContextHolder] = Modal.useModal();
   const [totalDeposit, setTotalDeposit] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-
+  const { t } = useTranslation()
 
   const handleGetToken = (tokenId: number) => {
     return tokens.find((i) => i.id === tokenId)
@@ -105,9 +106,11 @@ const Deposit = () => {
   useEffect(() => {
     getTotalDeposit();
   }, []);
+
+
   const columns: ProColumns[] = [
     {
-      title: 'Tài khoản',
+      title: t('Tài khoản'),
 
       sorter: false,
       align: 'center',
@@ -134,14 +137,14 @@ const Deposit = () => {
         <div className="flex flex-col gap-1">
           {' '}
           <div className="flex items-center justify-between gap-1">
-            <div>Số lượng:</div>
+            <div>{t("Số lượng")}:</div>
             <div className="text-yellow-700 font-bold">
               {formatNumber(row?.value)} {handleGetToken(row?.token_id)?.symbol || "USDT"}
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-1">
-            <div>Mạng lưới:</div>
+          {/* <div className="flex items-center justify-between gap-1">
+            <div>Tên Ngân Hàng:</div>
             <div className="text-green-600 font-bold">
               {row?.network || "-"}
             </div>
@@ -151,12 +154,12 @@ const Deposit = () => {
             <div className="text-green-600 font-bold">
               {row?.to || "-"}
             </div>
-          </div>
+          </div> */}
         </div>
       ),
     },
     {
-      title: 'Ghi chú',
+      title: t('Ghi chú'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -167,7 +170,7 @@ const Deposit = () => {
       ),
     },
     {
-      title: 'Trạng thái',
+      title: t('Trạng thái'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -175,7 +178,7 @@ const Deposit = () => {
         <div className="flex flex-col gap-1">
           {' '}
           <div className="flex items-center justify-between gap-1">
-          {row?.transaction_status === 'finish' ? (
+            {row?.transaction_status === 'finish' ? (
               <Tag color="green-inverse">Done</Tag>
             ) : row?.transaction_status === 'pending' ? (
               <Tag color="orange-inverse">Pending</Tag>
@@ -199,13 +202,13 @@ const Deposit = () => {
                 className="!bg-green-600 text-[#fff] font-[700]"
                 onClick={() => handleWithdraw(row?._id, true)}
               >
-                Duyệt
+                {t("Duyệt")}
               </Button>
               <Button
                 className="!bg-red-600 text-[#fff] font-[700]"
                 onClick={() => handleWithdraw(row?._id, false)}
               >
-                Từ chối
+                {t("Từ chối")}
               </Button>
             </div>
           </>
@@ -216,7 +219,7 @@ const Deposit = () => {
         ),
     },
     {
-      title: 'Ngày tạo',
+      title: t('Ngày tạo'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -228,16 +231,16 @@ const Deposit = () => {
 
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
-      
+
       <LoadingScreen spinning={loading} />
       <ProTable
         columns={columns}
         cardBordered={false}
         cardProps={{
-          subTitle: 'Nạp tiền',
+          subTitle: t('Nạp tiền'),
           tooltip: {
             className: 'opacity-60',
-            title: 'Thông tin nạp tiền',
+            title: t('Thông tin nạp tiền'),
           },
           title: <FiUsers className="opacity-60" />,
         }}

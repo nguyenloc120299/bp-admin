@@ -16,6 +16,7 @@ import http from '../../utils/http';
 import { API_URL } from '../../utils';
 import LoadingScreen from '../common/LoadingScreen';
 import { UploadProps } from 'antd/lib/upload';
+import { useTranslation } from 'react-i18next';
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -33,6 +34,7 @@ const breadcrumb: BreadcrumbProps = {
 const Setting = () => {
   const [configs, setConfigs] = useState<any>();
   const [loading, setLoading] = useState(false);
+  const { i18n, t } = useTranslation()
 
   const getConfigs = async () => {
     try {
@@ -45,7 +47,7 @@ const Setting = () => {
         }, {});
         setConfigs(result);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -91,42 +93,26 @@ const Setting = () => {
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-2 items-center">
-          <h3 className="font-bold">Phí Giao Dịch:</h3>
-          <div>{(configs && configs?.FEE_TRADING?.value) || 0}%</div>
-          <Popover
-            trigger={'click'}
-            content={
-              <Form
-                layout="vertical"
-                onFinish={(form: any) =>
-                  handleUpdateConfig('FEE_TRADING', form?.value || 0)
-                }
-              >
-                <Form.Item name={'value'}>
-                  <Input type="number" placeholder="Nhập phí giao dịch" />
-                </Form.Item>
-                <Form.Item>
-                  <Button htmlType="submit">Submit</Button>
-                </Form.Item>
-              </Form>
-            }
-          >
-            <Button size="small">Edit Config</Button>
-          </Popover>
-        </div>
-        <div className="flex flex-col justify-start gap-2 items-start">
-          <h3 className="font-bold">Logo App:</h3>
-          <Upload {...props} accept="image/*">
-            <div className="relative">
-              <img
-                src={configs?.LOGO_APP?.value}
-                width={100}
-                className="rounded-md"
-              />
-            </div>
-          </Upload>
+      <div className="flex items-center gap-2">
+        {t("Cài đặt ngôn ngữ")}:
+        <div className='flex items-center gap-2'>
+          <img src="/china.png" className='w-[32px] cursor-pointer' style={{
+            opacity: i18n.language === 'cn' ? 1 : .1
+          }}
+            onClick={() => {
+              i18n.changeLanguage('cn')
+              localStorage.setItem("lang", "cn")
+            }}
+          />
+          <img src="/vn.png" className='w-[32px] cursor-pointer'
+            style={{
+              opacity: i18n.language === 'vi' ? 1 : .7
+            }}
+            onClick={() => {
+              i18n.changeLanguage('vi')
+              localStorage.setItem("lang", "vi")
+            }}
+          />
         </div>
       </div>
     </BasePageContainer>

@@ -10,12 +10,14 @@ import { sidebar } from './sidebar';
 import { apiRoutes } from '../../routes/api';
 import http from '../../utils/http';
 import { handleErrorResponse } from '../../utils';
-import { RiShieldUserFill } from 'react-icons/ri';
+import { RiShieldUserFill, RiSettings2Fill } from 'react-icons/ri';
+import { useTranslation } from 'react-i18next';
 
 const Layout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation()
 
   const defaultProps: ProLayoutProps = {
     title: CONFIG.appName,
@@ -24,7 +26,7 @@ const Layout = () => {
     fixSiderbar: true,
     layout: CONFIG.theme.sidebarLayout,
     route: {
-      routes: sidebar,
+      routes: sidebar(t),
     },
   };
 
@@ -71,7 +73,16 @@ const Layout = () => {
             return (
               <Dropdown
                 menu={{
+
                   items: [
+                    {
+                      key: 'setting_admin',
+                      icon: <RiSettings2Fill />,
+                      label: 'Setting',
+                      onClick: () => {
+                        navigate('/setting')
+                      },
+                    },
                     {
                       key: 'logout',
                       icon: <LogoutOutlined />,
@@ -80,6 +91,7 @@ const Layout = () => {
                         logoutAdmin();
                       },
                     },
+
                   ],
                 }}
               >

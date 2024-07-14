@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import http from '../../utils/http';
 import { apiRoutes } from '../../routes/api';
 import { formatNumber } from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -20,7 +21,7 @@ const breadcrumb: BreadcrumbProps = {
 
 const Dashboard = () => {
   const [data, setData] = useState<any>(null)
-
+  const { t } = useTranslation()
   const getDataDashboard = async () => {
     try {
       const res = await http.get(apiRoutes.dashboarData);
@@ -41,13 +42,13 @@ const Dashboard = () => {
         <Card title="User" className='shadow-md'>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng:
+              {t("Tổng")}:
             </div>
             <div className='font-bold'>{data?.totalUser || "-"}</div>
           </div>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng hôm nay:
+              {t("Tổng hôm nay")}:
             </div>
             <div className='font-bold'>{data?.totalUserNow || "-"}</div>
           </div>
@@ -55,25 +56,25 @@ const Dashboard = () => {
         <Card title="Nạp tiền" className='shadow-md'>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng:
+              {t("Tổng")}:
             </div>
             <div className='font-bold'>{data?.depositCount || "-"}</div>
           </div>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng hôm nay:
+              {t("Tổng hôm nay")}:
             </div>
             <div className='font-bold'>{data?.depositCountNow || "-"}</div>
           </div>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng tiền nạp:
+              {t("Tổng tiền nạp")}:
             </div>
             <div className='font-bold'>{formatNumber(data?.depositTotal?.toFixed(2)) || "-"} $</div>
           </div>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng tiền hôm nay:
+              {t("Tổng tiền hôm nay")}:
             </div>
             <div className='font-bold'>{formatNumber(data?.depositTotalToday?.toFixed(2)) || "-"} $</div>
           </div>
@@ -81,25 +82,25 @@ const Dashboard = () => {
         <Card title="Rút tiền" className='shadow-md'>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng:
+              {t("Tổng")}:
             </div>
             <div className='font-bold'>{data?.withdrawlsCount || "-"}</div>
           </div>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng hôm nay:
+              {t("Tổng hôm nay")}:
             </div>
             <div className='font-bold'>{data?.withdrawlsCountNow || "-"}</div>
           </div>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng tiền rút:
+              {t("Tổng tiền rút")}:
             </div>
             <div className='font-bold'>{formatNumber(data?.withdrawalsTotal?.toFixed(2)) || "-"} $</div>
           </div>
           <div className='flex gap-2 items-center'>
             <div>
-              Tổng tiền hôm nay:
+              {t("Tổng tiền hôm nay")}:
             </div>
             <div className='font-bold'>{formatNumber(data?.withdrawalsTotalToday?.toFixed(2)) || "-"} $</div>
           </div>

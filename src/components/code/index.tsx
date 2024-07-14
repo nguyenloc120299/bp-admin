@@ -11,6 +11,7 @@ import { handleErrorResponse } from '../../utils';
 import { CiCircleCheck } from 'react-icons/ci';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import LoadingScreen from '../common/LoadingScreen';
+import { useTranslation } from 'react-i18next';
 
 const breadcrumb: BreadcrumbProps = {
     items: [
@@ -28,11 +29,11 @@ const breadcrumb: BreadcrumbProps = {
 const Code = () => {
     const actionRef = useRef<ActionType>();
     const [loading, setLoading] = useState(false)
-
+    const { t } = useTranslation()
 
     const columns: ProColumns[] = [
         {
-            title: 'Mã giới thiệu',
+            title: t('Mã giới thiệu'),
 
             sorter: false,
             align: 'center',
@@ -45,7 +46,7 @@ const Code = () => {
         },
 
         {
-            title: 'Ngày tạo',
+            title: t('Ngày tạo'),
             sorter: false,
             align: 'center',
             ellipsis: true,
@@ -111,16 +112,16 @@ const Code = () => {
                             setLoading(false)
                         }}
                     >
-                        <Form.Item name="code" label="Nhập mã giới thiệu">
-                            <Input placeholder='Nhập mã' />
+                        <Form.Item name="code" label={t("Nhập mã giới thiệu")}>
+                            <Input placeholder={t('Nhập mã')} />
                         </Form.Item>
                         <Form.Item>
-                            <Button htmlType='submit'>Tạo</Button>
+                            <Button htmlType='submit'>{t("Tạo")}</Button>
                         </Form.Item>
                     </Form>
                 }>
                     <Button>
-                        Tạo Mã
+                        {t("Tạo Mã")}
                     </Button>
                 </Popover>
             </div>
@@ -128,10 +129,10 @@ const Code = () => {
                 columns={columns}
                 cardBordered={false}
                 cardProps={{
-                    subTitle: 'Mã giới thiệu',
+                    subTitle: t('Mã giới thiệu'),
                     tooltip: {
                         className: 'opacity-60',
-                        title: 'Rút tiền',
+                        title: t('Mã giới thiệu'),
                     },
                     title: <FiCheckCircle className="opacity-60" />,
                 }}

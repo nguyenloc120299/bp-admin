@@ -37,6 +37,7 @@ import { formatNumber, shortenEthAddress } from '../../utils/helpers';
 import useCopyToClipboard from '../hooks/useCopyClipboard';
 import LoadingScreen from '../common/LoadingScreen';
 import { Option } from 'antd/es/mentions';
+import { useTranslation } from 'react-i18next';
 
 enum ActionKey {
   DELETE = 'delete',
@@ -61,7 +62,7 @@ const breadcrumb: BreadcrumbProps = {
 
 const Users = () => {
   const actionRef = useRef<ActionType>();
-
+  const { t } = useTranslation()
   const [selectedUserEdit, setSelectedUserEdit] = useState<any>(null);
   const [modal, modalContextHolder] = Modal.useModal();
   const [loading, setLoading] = useState(false);
@@ -95,7 +96,7 @@ const Users = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Tài khoản',
+      title: t('Tài khoản'),
 
       sorter: false,
       align: 'center',
@@ -108,21 +109,21 @@ const Users = () => {
             <div>{row?._id}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Tên TK:</div>
+            <div>{t("Tên Tài Khoản")}:</div>
             <div>{row?.email}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>---Mật khẩu:</div>
+            <div>---{t("Mật khẩu")}:</div>
             <div>{row?.password}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>***Tổng Nạp:</div>
+            <div>***{t("Tổng Nạp")}:</div>
             <div className="text-green-600 font-bold">
               {formatNumber(row?.totalDeposit)}$
             </div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>***Tổng Rút:</div>
+            <div>***{t("Tổng Rút")}:</div>
             <div className="text-green-600 font-bold">
               {formatNumber(row?.totalWithdraw)}$
             </div>
@@ -131,7 +132,7 @@ const Users = () => {
       ),
     },
     {
-      title: 'Ví',
+      title: t('Ví'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -141,7 +142,7 @@ const Users = () => {
 
 
           <div className="flex items-center justify-between gap-1">
-            <div>Số dư:</div>
+            <div>{t("Số dư")}:</div>
             <div className="text-yellow-700 font-bold">{formatNumber(row?.real_balance)}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
@@ -152,50 +153,50 @@ const Users = () => {
       ),
     },
 
-    {
-      title: 'Xác thực',
-      sorter: false,
-      align: 'center',
-      ellipsis: true,
-      search: false,
-      render: (_, row: any) => (
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center justify-between gap-1">
-            {row?.is_kyc === 'no_kyc' ? (
-              <Tag>Chưa KYC</Tag>
-            ) : row?.is_kyc === 'pending' ? (
-              <Tag color="warning">Đã gửi yêu cầu KYC</Tag>
-            ) : (
-              <Tag color="green">Đã KYC</Tag>
-            )}
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            {row?.verified ? (
-              <Tag color="green">Đã xác thực google</Tag>
-            ) : (
-              <Tag color="red">Chưa xác thực google</Tag>
-            )}
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            {!row?.is_lock_withdraw ? (
-              <Tag color="green">Cho phép rút tiền</Tag>
-            ) : (
-              <Tag color="red">Đã khóa rút tiền</Tag>
-            )}
-          </div>
-          <div className="flex items-center justify-between gap-1">
-            {!row?.is_lock_transfer ? (
-              <Tag color="green">Cho phép phép giao dịch</Tag>
-            ) : (
-              <Tag color="red">Đã khóa giao dịch</Tag>
-            )}
-          </div>
-        </div>
-      ),
-    },
+    // {
+    //   title: t('Xác thực'),
+    //   sorter: false,
+    //   align: 'center',
+    //   ellipsis: true,
+    //   search: false,
+    //   render: (_, row: any) => (
+    //     <div className="flex flex-col gap-1">
+    //       <div className="flex items-center justify-between gap-1">
+    //         {row?.is_kyc === 'no_kyc' ? (
+    //           <Tag>Chưa KYC</Tag>
+    //         ) : row?.is_kyc === 'pending' ? (
+    //           <Tag color="warning">Đã gửi yêu cầu KYC</Tag>
+    //         ) : (
+    //           <Tag color="green">Đã KYC</Tag>
+    //         )}
+    //       </div>
+    //       <div className="flex items-center justify-between gap-1">
+    //         {row?.verified ? (
+    //           <Tag color="green">Đã xác thực google</Tag>
+    //         ) : (
+    //           <Tag color="red">Chưa xác thực google</Tag>
+    //         )}
+    //       </div>
+    //       <div className="flex items-center justify-between gap-1">
+    //         {!row?.is_lock_withdraw ? (
+    //           <Tag color="green">Cho phép rút tiền</Tag>
+    //         ) : (
+    //           <Tag color="red">Đã khóa rút tiền</Tag>
+    //         )}
+    //       </div>
+    //       <div className="flex items-center justify-between gap-1">
+    //         {!row?.is_lock_transfer ? (
+    //           <Tag color="green">Cho phép phép giao dịch</Tag>
+    //         ) : (
+    //           <Tag color="red">Đã khóa giao dịch</Tag>
+    //         )}
+    //       </div>
+    //     </div>
+    //   ),
+    // },
 
     {
-      title: 'Ngày tạo',
+      title: t('Ngày tạo'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -229,25 +230,25 @@ const Users = () => {
               name: (
                 <Space>
                   <FiEdit />
-                  Cập nhật thông tin
+                  {t("Cập nhật thông tin")}
                 </Space>
               ),
             },
-            {
-              key: ActionKey.LOCK,
-              name: (
-                <Space>
-                  <FiLock />
-                  Khóa tài khoản
-                </Space>
-              ),
-            },
+            // {
+            //   key: ActionKey.LOCK,
+            //   name: (
+            //     <Space>
+            //       <FiLock />
+            //       Khóa tài khoản
+            //     </Space>
+            //   ),
+            // },
             {
               key: ActionKey.BALANCE,
               name: (
                 <Space>
                   <FiEdit />
-                  Thay đổi số dư
+                  {t("Thay đổi số dư")}
                 </Space>
               ),
             },
@@ -307,7 +308,7 @@ const Users = () => {
       {selectedUserEdit && (
         <Modal
           open={selectedUserEdit}
-          title="Cập nhật thông tin"
+          title={t("Cập nhật thông tin")}
           onCancel={() => setSelectedUserEdit(null)}
           centered
           footer={null}
@@ -318,10 +319,10 @@ const Users = () => {
             onFinish={(form) => handleUpdateUser(form, selectedUserEdit)}
           >
             <Form.Item name={'user_name'} label="Nick Name" className="mb-3">
-              <Input placeholder="Nhập Nick Name" />
+              <Input placeholder={t("Nhập Nick Name")} />
             </Form.Item>
-            <Form.Item name={'password'} label="Mật khẩu" className="mb-3">
-              <Input placeholder="Nhập mật khẩu" />
+            <Form.Item name={'password'} label={t("Mật khẩu")} className="mb-3">
+              <Input placeholder={t("Nhập mật khẩu")} />
             </Form.Item>
             <Form.Item name='level_vip' label="VIP" className='mb-3'>
               <Select>
@@ -394,12 +395,12 @@ const Users = () => {
           open
           centered
           footer={null}
-          title="Thay đổi số dư ví"
+          title={t("Thay đổi số dư ví")}
         >
           <Tabs
             items={[
               {
-                label: 'Cộng tiền',
+                label: t('Cộng tiền'),
                 key: '1',
                 children: (
                   <Form
@@ -414,17 +415,17 @@ const Users = () => {
                       <InputNumber
                         className="w-full"
                         type="number"
-                        placeholder="Nhập số tiền cộng"
+                        placeholder={t("Nhập số tiền cộng")}
                       />
                     </Form.Item>
                     <Form.Item>
-                      <Button htmlType='submit'>Cộng</Button>
+                      <Button htmlType='submit'>{t("Cộng")}</Button>
                     </Form.Item>
                   </Form>
                 ),
               },
               {
-                label: 'Trừ tiền',
+                label: t('Trừ tiền'),
                 key: '2',
                 children: (
                   <Form
@@ -440,11 +441,11 @@ const Users = () => {
                       <InputNumber
                         className="w-full"
                         type="number"
-                        placeholder="Nhập số tiền trừ"
+                        placeholder={t("Nhập số tiền trừ")}
                       />
                     </Form.Item>
                     <Form.Item>
-                      <Button htmlType='submit'>Trừ</Button>
+                      <Button htmlType='submit'>x{t("Trừ")}</Button>
                     </Form.Item>
                   </Form>
                 ),
@@ -504,7 +505,7 @@ const Users = () => {
         dateFormatter="string"
         options={{
           search: {
-            placeholder: 'Tìm kiếm theo ID,Username, Email,...',
+            placeholder: t('Tìm kiếm theo ID,Username, Email,...'),
             width: 100,
             allowClear: true,
           },

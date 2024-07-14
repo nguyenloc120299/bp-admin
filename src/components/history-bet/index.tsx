@@ -20,6 +20,7 @@ import Icon, { CheckOutlined } from '@ant-design/icons';
 import { formatNumber } from '../../utils/helpers';
 import LoadingScreen from '../common/LoadingScreen';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -38,7 +39,7 @@ const HistoriesBet = () => {
   const actionRef = useRef<ActionType>();
   const [totalWithdraw, setTotalWithdraw] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-
+  const { t } = useTranslation()
   const getTotalWithdraw = async () => {
     try {
       const res = await http.get(apiRoutes.getStatisticsPayment);
@@ -56,7 +57,7 @@ const HistoriesBet = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Tài khoản',
+      title: t('Tài khoản'),
 
       sorter: false,
       align: 'center',
@@ -79,7 +80,7 @@ const HistoriesBet = () => {
       ),
     },
     {
-      title: 'Cược',
+      title: t('Cược'),
 
       sorter: false,
       align: 'center',
@@ -91,14 +92,14 @@ const HistoriesBet = () => {
             <div>{row?.bet_id || "-"}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Số lượng cược:</div>
+            <div>{t("Số lượng cược")}:</div>
             <div>{formatNumber(row?.value)}</div>
           </div>
         </div>
       ),
     },
     {
-      title: 'Trạng thái',
+      title: t('Trạng thái'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -107,15 +108,15 @@ const HistoriesBet = () => {
           {' '}
           <div className="flex items-center justify-between gap-1">
             {row?.transaction_status === 'pending' ? (
-              <Tag color='warning'>Đang chờ</Tag>
+              <Tag color='warning'>{t("Đang chờ")}</Tag>
             ) : (
               row?.transaction_status === 'cancel' ?
                 <Tag color={'red-inverse'}>
-                  Thua
+                  {t("Thua")}
                 </Tag>
                 :
                 <Tag color={'green-inverse'}>
-                  Thắng
+                  {t("Thắng")}
                 </Tag>
             )}
           </div>
@@ -123,7 +124,7 @@ const HistoriesBet = () => {
       ),
     },
     {
-      title: 'Ngày cược',
+      title: t('Ngày cược'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -132,7 +133,7 @@ const HistoriesBet = () => {
       ),
     },
     {
-      title: 'Kết thúc',
+      title: t('Kết thúc'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -171,25 +172,16 @@ const HistoriesBet = () => {
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
 
-      <div className="flex lg:gap-10 gap-3 items-center flex-wrap">
-        <div className="flex items-center text-lg font-bold text-red-500 lg:my-6 gap-2">
-          <p>Tổng usdt rút: </p>
-          <p> {formatNumber(-totalWithdraw?.totalValueWithdraw)} USDT</p>
-        </div>
-        <div className="flex items-center text-lg font-bold text-green-500 lg:my-6 gap-2">
-          <p>Tổng tiền rút: </p>
-          <p> {formatNumber(totalWithdraw?.totalValueFiatWithdraw)} VNĐ</p>
-        </div>
-      </div>
+
 
       <ProTable
         columns={columns}
         cardBordered={false}
         cardProps={{
-          subTitle: 'Rút tiền',
+          subTitle: 'Bet',
           tooltip: {
             className: 'opacity-60',
-            title: 'Rút tiền',
+            title: 'Bet',
           },
           title: <FiUsers className="opacity-60" />,
         }}

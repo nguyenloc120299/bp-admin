@@ -21,6 +21,7 @@ import BasePageContainer from '../layout/PageContainer';
 import Icon, { CheckOutlined } from '@ant-design/icons';
 import { formatNumber } from '../../utils/helpers';
 import LoadingScreen from '../common/LoadingScreen';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -41,7 +42,7 @@ const Withdraw = () => {
   const actionRef = useRef<ActionType>();
   const [totalWithdraw, setTotalWithdraw] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-
+  const { t } = useTranslation()
 
   const getTotalWithdraw = async () => {
     try {
@@ -61,7 +62,7 @@ const Withdraw = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Tài khoản',
+      title: t('Tài khoản'),
 
       sorter: false,
       align: 'center',
@@ -80,7 +81,7 @@ const Withdraw = () => {
       ),
     },
     {
-      title: 'Rút',
+      title: t('Rút'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -88,43 +89,43 @@ const Withdraw = () => {
         <div className="flex flex-col gap-1">
           {' '}
           <div className="flex items-center justify-between gap-1">
-            <div>Số lượng:</div>
+            <div>{t("Số lượng")}:</div>
             <div className="text-yellow-700 font-bold">
               {formatNumber(row?.value)} USDT
             </div>
           </div>
 
           <div className="flex items-center justify-between gap-1">
-            <div>Phương thức thanh toán:</div>
-            <div className="text-green-600 font-bold">Ngân Hàng</div>
+            <div>{t("Phương thức thanh toán")}:</div>
+            <div className="text-green-600 font-bold">{t("Ngân Hàng")}</div>
           </div>
         </div>
       ),
     },
     {
-      title: 'Thông tin',
+      title: t('Thông tin'),
       sorter: false,
       align: 'center',
       ellipsis: true,
       render: (_, row: any) => (
         <>
           <div className="flex items-center justify-between gap-1">
-            <div>STK:</div>
+            <div>{t("")}:</div>
             <div className=" font-bold">{row?.user?.number_bank}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Tên chủ thẻ:</div>
+            <div>{t("Tên chủ thẻ")}:</div>
             <div className=" font-bold">{row?.user?.account_name}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>Tên Ngân Hàng:</div>
+            <div>{t("Tên Ngân Hàng")}:</div>
             <div className=" font-bold">{row?.user?.name_bank}</div>
           </div>
         </>
       ),
     },
     {
-      title: 'Trạng thái',
+      title: t('Trạng thái'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -144,7 +145,7 @@ const Withdraw = () => {
       ),
     },
     {
-      title: 'Ngày tạo',
+      title: t('Ngày tạo'),
       sorter: false,
       align: 'center',
       ellipsis: true,
@@ -165,13 +166,13 @@ const Withdraw = () => {
                 className="!bg-green-600 text-[#fff] font-[700]"
                 onClick={() => handleWithdraw(row?._id, true)}
               >
-                Duyệt
+                {t("Duyệt")}
               </Button>
               <Button
                 className="!bg-red-600 text-[#fff] font-[700]"
                 onClick={() => handleWithdraw(row?._id, false)}
               >
-                Từ chối
+                {t("Từ chối")}
               </Button>
             </div>
           </>
@@ -217,10 +218,10 @@ const Withdraw = () => {
         columns={columns}
         cardBordered={false}
         cardProps={{
-          subTitle: 'Rút tiền',
+          subTitle: t('Rút tiền'),
           tooltip: {
             className: 'opacity-60',
-            title: 'Rút tiền',
+            title: t('Rút tiền'),
           },
           title: <FiUsers className="opacity-60" />,
         }}

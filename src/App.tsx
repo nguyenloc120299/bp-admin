@@ -10,9 +10,11 @@ import http from './utils/http';
 import { useDispatch } from 'react-redux';
 import { login, logout } from './store/slices/adminSlice';
 import { apiRoutes } from './routes/api';
+import { useTranslation } from 'react-i18next';
 
 function App() {
   const context = useContext(DataContext);
+  const { i18n } = useTranslation()
   const handleSetSocket = context.setSocket;
   const state: RootState = store.getState();
   const dispatch = useDispatch();
@@ -37,7 +39,11 @@ function App() {
   };
 
   useEffect(() => {
+    i18n.changeLanguage(localStorage.getItem('lang') || "cn")
+  }, [])
+  useEffect(() => {
     getAdmin();
+
   }, [state.admin]);
   // useEffect(() => { 
   //   const socket = io(`${import.meta.env.VITE_SOCKET_URL}`);

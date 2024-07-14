@@ -11,7 +11,7 @@ import { injectStore } from './utils/http';
 import App from './App';
 import './index.css';
 import { DataProvider } from './context/SocketProvider';
-
+import './i18n'
 const persistor = persistStore(store);
 injectStore(store);
 

@@ -7,7 +7,7 @@ enum LayoutType {
 }
 
 const CONFIG = {
-  appName: 'Reforge',
+  appName: 'Xoso',
   helpLink: 'https://github.com/arifszn/reforge',
   enablePWA: true,
   theme: {
