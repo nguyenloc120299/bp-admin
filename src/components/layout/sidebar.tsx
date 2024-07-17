@@ -40,12 +40,12 @@ export const sidebar = (t: any) => {
       name: t('Giao dịch'),
       icon: <HistoryOutlined />,
     },
-    {
-      path: webRoutes.code,
-      key: webRoutes.code,
-      name: t('Mã giới thiệu'),
-      icon: <CodeOutlined />,
-    },
+    // {
+    //   path: webRoutes.code,
+    //   key: webRoutes.code,
+    //   name: t('Mã giới thiệu'),
+    //   icon: <CodeOutlined />,
+    // },
     // {
     //   path: webRoutes.setting,
     //   key: webRoutes.setting,
