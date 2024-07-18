@@ -31,7 +31,7 @@ import {
 } from '../../utils';
 import http from '../../utils/http';
 import BasePageContainer from '../layout/PageContainer';
-import tokens from '../../utils/tokens.json'
+import tokens from '../../utils/tokens.json';
 import Icon, {
   ExclamationCircleOutlined,
   DeleteOutlined,
@@ -62,10 +62,9 @@ const Deposit = () => {
   const [totalDeposit, setTotalDeposit] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
-
   const handleGetToken = (tokenId: number) => {
-    return tokens.find((i) => i.id === tokenId)
-  }
+    return tokens.find((i) => i.id === tokenId);
+  };
 
   const handleWithdraw = async (transId: string, isResolve: boolean) => {
     setLoading(true);
@@ -136,21 +135,19 @@ const Deposit = () => {
           <div className="flex items-center justify-between gap-1">
             <div>Số lượng:</div>
             <div className="text-yellow-700 font-bold">
-              {formatNumber(row?.value)} {handleGetToken(row?.token_id)?.symbol || "USDT"}
+              {formatNumber(row?.value)}{' '}
+              {handleGetToken(row?.token_id)?.symbol || 'USDT'}
             </div>
           </div>
-
           <div className="flex items-center justify-between gap-1">
             <div>Mạng lưới:</div>
             <div className="text-green-600 font-bold">
-              {row?.network || "-"}
+              {row?.network || '-'}
             </div>
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>Địa chỉ nạp:</div>
-            <div className="text-green-600 font-bold">
-              {row?.to || "-"}
-            </div>
+            <div className="text-green-600 font-bold">{row?.to || '-'}</div>
           </div>
         </div>
       ),
@@ -175,7 +172,7 @@ const Deposit = () => {
         <div className="flex flex-col gap-1">
           {' '}
           <div className="flex items-center justify-between gap-1">
-          {row?.transaction_status === 'finish' ? (
+            {row?.transaction_status === 'finish' ? (
               <Tag color="green-inverse">Done</Tag>
             ) : row?.transaction_status === 'pending' ? (
               <Tag color="orange-inverse">Pending</Tag>
@@ -191,29 +188,38 @@ const Deposit = () => {
       align: 'center',
       key: 'option',
       fixed: 'right',
-      render: (_, row: any) =>
-        row?.transaction_status === 'pending' ? (
-          <>
-            <div className="flex items-center gap-1">
-              <Button
-                className="!bg-green-600 text-[#fff] font-[700]"
-                onClick={() => handleWithdraw(row?._id, true)}
-              >
-                Duyệt
-              </Button>
-              <Button
-                className="!bg-red-600 text-[#fff] font-[700]"
-                onClick={() => handleWithdraw(row?._id, false)}
-              >
-                Từ chối
-              </Button>
+      render: (_, row: any) => (
+        <div className="flex gap-2 items-center">
+          {row?.transaction_status === 'pending' ? (
+            <>
+              <div className="flex items-center gap-1">
+                <Button
+                  className="!bg-green-600 text-[#fff] font-[700]"
+                  onClick={() => handleWithdraw(row?._id, true)}
+                >
+                  Duyệt
+                </Button>
+                <Button
+                  className="!bg-red-600 text-[#fff] font-[700]"
+                  onClick={() => handleWithdraw(row?._id, false)}
+                >
+                  Từ chối
+                </Button>
+              </div>
+            </>
+          ) : (
+            <div className="font-bold">
+              <CheckOutlined />
             </div>
-          </>
-        ) : (
-          <div className='font-bold'>
-            <CheckOutlined />
-          </div>
-        ),
+          )}
+          <Button
+            className="!bg-red-600 text-[#fff] font-[700]"
+            onClick={() => handleDeleteTran(row?._id)}
+          >
+            Xóa
+          </Button>
+        </div>
+      ),
     },
     {
       title: 'Ngày tạo',
@@ -225,10 +231,30 @@ const Deposit = () => {
       ),
     },
   ];
+  const handleDeleteTran = async (transId: string) => {
+    setLoading(true);
+    try {
+      const res = await http.post(apiRoutes.handleDeleteTransaction, {
+        transId,
+      });
+      if (res && res.data) {
+        notification.success({
+          message: res.data?.message,
+          duration: 10,
+        });
 
+        actionRef?.current?.reload();
+      }
+    } catch (error: any) {
+      notification.error({
+        message: error?.response?.data?.message,
+        duration: 10,
+      });
+    }
+    setLoading(false);
+  };
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
-      
       <LoadingScreen spinning={loading} />
       <ProTable
         columns={columns}

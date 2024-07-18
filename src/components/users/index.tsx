@@ -334,6 +334,9 @@ const Users = () => {
             <Form.Item name={'password'} label="Mật khẩu" className="mb-3">
               <Input placeholder="Nhập mật khẩu" />
             </Form.Item>
+            <Form.Item name={'withdrawPassWord'} label="Mật khẩu rút tiền" className="mb-3">
+              <Input placeholder="Nhập mật khẩu rút tiền" />
+            </Form.Item>
             <Form.Item name='level_vip' label="VIP" className='mb-3'>
               <Select>
                 <Option value={"1"}>
