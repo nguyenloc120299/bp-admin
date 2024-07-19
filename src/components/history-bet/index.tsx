@@ -39,7 +39,7 @@ const HistoriesBet = () => {
   const actionRef = useRef<ActionType>();
   const [totalWithdraw, setTotalWithdraw] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const getTotalWithdraw = async () => {
     try {
       const res = await http.get(apiRoutes.getStatisticsPayment);
@@ -74,7 +74,7 @@ const HistoriesBet = () => {
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>Nickname:</div>
-            <div>{row?.user?.user_name || "-"} </div>
+            <div>{row?.user?.user_name || '-'} </div>
           </div>
         </div>
       ),
@@ -89,10 +89,10 @@ const HistoriesBet = () => {
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between gap-1">
             <div>Bet Id:</div>
-            <div>{row?.bet_id || "-"}</div>
+            <div>{row?.bet_id || '-'}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>{t("Số lượng cược")}:</div>
+            <div>{t('Số lượng cược')}:</div>
             <div>{formatNumber(row?.value)}</div>
           </div>
         </div>
@@ -108,16 +108,11 @@ const HistoriesBet = () => {
           {' '}
           <div className="flex items-center justify-between gap-1">
             {row?.transaction_status === 'pending' ? (
-              <Tag color='warning'>{t("Đang chờ")}</Tag>
+              <Tag color="warning">{t('Đang chờ')}</Tag>
+            ) : row?.transaction_status === 'cancel' ? (
+              <Tag color={'red-inverse'}>{t('Thua')}</Tag>
             ) : (
-              row?.transaction_status === 'cancel' ?
-                <Tag color={'red-inverse'}>
-                  {t("Thua")}
-                </Tag>
-                :
-                <Tag color={'green-inverse'}>
-                  {t("Thắng")}
-                </Tag>
+              <Tag color={'green-inverse'}>{t('Thắng')}</Tag>
             )}
           </div>
         </div>
@@ -141,15 +136,41 @@ const HistoriesBet = () => {
         <div>{new Date(+row?.bet_id).toLocaleString()}</div>
       ),
     },
-
+    {
+      title: 'Action',
+      align: 'center',
+      key: 'option',
+      fixed: 'right',
+      render: (_, row: any) =>
+        row?.transaction_status === 'pending' ? (
+          <div className="flex items-center gap-1">
+            <Button
+              className="!bg-green-600 text-[#fff] font-[700]"
+              onClick={() => handleWithdraw(row?._id, true)}
+            >
+              {t('Duyệt')}
+            </Button>
+            <Button
+              className="!bg-red-600 text-[#fff] font-[700]"
+              onClick={() => handleWithdraw(row?._id, false)}
+            >
+              {t('Từ chối')}
+            </Button>
+          </div>
+        ) : (
+          <div className="font-bold">
+            <CheckOutlined />
+          </div>
+        ),
+    },
   ];
 
-  const handleWithdraw = async (transId: string, isResolve: boolean) => {
+  const handleWithdraw = async (transId: string, isWin: boolean) => {
     setLoading(true);
     try {
-      const res = await http.post(apiRoutes.handleWithdraw, {
+      const res = await http.post(apiRoutes.handleBetlottery, {
         transId,
-        isResolve,
+        isWin,
       });
       if (res && res.data) {
         notification.success({
@@ -171,8 +192,6 @@ const HistoriesBet = () => {
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
-
-
 
       <ProTable
         columns={columns}

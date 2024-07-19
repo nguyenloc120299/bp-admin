@@ -22,5 +22,6 @@ export const apiRoutes = {
   getAnalyticData: `${API_URL}/analytic`,
   updateBet: `${API_URL}/update-bet`,
   dashboarData: `${API_URL}/dashboard`,
+  handleBetlottery: `${API_URL}/handleBetlottery`
 
 };
