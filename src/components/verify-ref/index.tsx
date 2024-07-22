@@ -46,6 +46,7 @@ const UserRef = () => {
       const res = await http.post(apiRoutes.handleVerifyCTV, {
         isCheck,
         transId,
+        isMember
       });
       if (res && res.data) {
         notification.success({
@@ -152,7 +153,7 @@ const UserRef = () => {
                   className="!bg-gray-50-600 text-[#fff] font-[700]"
                   onClick={() => handleKycUser(true, row?._id, false)}
                 >
-                  <CiCircleCheck />
+                  <CiCircleCheck className='text-[#aaa]' />
                 </Button>
                 <Button
                   className="!bg-red-600 text-[#fff] font-[700]"
