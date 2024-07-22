@@ -36,7 +36,11 @@ const UserRef = () => {
   const actionRef = useRef<ActionType>();
   const [loading, setLoading] = useState(false);
 
-  const handleKycUser = async (isCheck: boolean, transId: string) => {
+  const handleKycUser = async (
+    isCheck: boolean,
+    transId: string,
+    isMember: boolean
+  ) => {
     setLoading(true);
     try {
       const res = await http.post(apiRoutes.handleVerifyCTV, {
@@ -115,7 +119,6 @@ const UserRef = () => {
               <div className=" font-bold">{formatNumber(row?.value)}$</div>
             </div>
           )}
-          
         </>
       ),
     },
@@ -141,13 +144,19 @@ const UserRef = () => {
               <>
                 <Button
                   className="!bg-green-600 text-[#fff] font-[700]"
-                  onClick={() => handleKycUser(true, row?._id)}
+                  onClick={() => handleKycUser(true, row?._id, true)}
+                >
+                  <CiCircleCheck />
+                </Button>
+                <Button
+                  className="!bg-gray-50-600 text-[#fff] font-[700]"
+                  onClick={() => handleKycUser(true, row?._id, false)}
                 >
                   <CiCircleCheck />
                 </Button>
                 <Button
                   className="!bg-red-600 text-[#fff] font-[700]"
-                  onClick={() => handleKycUser(false, row?._id)}
+                  onClick={() => handleKycUser(false, row?._id, false)}
                 >
                   <RiCloseCircleLine />
                 </Button>

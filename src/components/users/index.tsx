@@ -159,6 +159,10 @@ const Users = () => {
             <div>VIP:</div>
             <div className="text-green-700 font-bold">{row?.level_vip || 1}</div>
           </div>
+          <div className="flex items-center justify-between gap-1">
+            <div>Số người đã giới thiệu:</div>
+            <div className="text-green-700 font-bold">{row?.referredUsers?.length || 0}</div>
+          </div>
         </div>
       ),
     },
