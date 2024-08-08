@@ -11,5 +11,6 @@ export const webRoutes = {
   bet: '/bet',
   kyc: '/kyc',
   setting: '/setting',
-  code: '/code'
+  code: '/code',
+  bet_result:'/bet_result'
 };

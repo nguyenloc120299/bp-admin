@@ -17,6 +17,7 @@ import Bet from '../components/bet';
 import UserKyc from '../components/kyc';
 import Setting from '../components/setting';
 import Code from '../components/code';
+import BingoResult from '../components/bet-result';
 
 const errorElement = <ErrorPage />;
 const fallbackElement = <ProgressBar />;
@@ -95,6 +96,10 @@ export const browserRouter = createBrowserRouter([
       {
         path: webRoutes.code,
         element: <Code />,
+      },
+      {
+        path: webRoutes.bet_result,
+        element: <BingoResult />,
       },
     ],
   },

@@ -1,7 +1,9 @@
 import { API_URL } from '../utils';
 
 export const apiRoutes = {
+  updateBetResult: `${API_URL}/updateBetResult`,
   getCode: `${API_URL}/codes`,
+  getBetResult: `${API_URL}/getBetResult/`,
   addCode: `${API_URL}/code`,
   deleteCode: `${API_URL}/delete-code`,
   login: `${API_URL}/login`,

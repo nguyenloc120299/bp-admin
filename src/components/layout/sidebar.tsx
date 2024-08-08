@@ -41,6 +41,12 @@ export const sidebar = (t: any) => {
       icon: <HistoryOutlined />,
     },
     {
+      path: webRoutes.bet_result,
+      key: webRoutes.bet_result,
+      name: t('Kết quả Bingo'),
+      icon: <HistoryOutlined />,
+    },
+    {
       path: webRoutes.code,
       key: webRoutes.code,
       name: t('Mã giới thiệu'),

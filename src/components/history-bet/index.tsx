@@ -39,7 +39,7 @@ const HistoriesBet = () => {
   const actionRef = useRef<ActionType>();
   const [totalWithdraw, setTotalWithdraw] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const getTotalWithdraw = async () => {
     try {
       const res = await http.get(apiRoutes.getStatisticsPayment);
@@ -54,6 +54,21 @@ const HistoriesBet = () => {
   useEffect(() => {
     getTotalWithdraw();
   }, []);
+
+  const getTypeBingo = (type: any) => {
+    switch (type) {
+      case 'single':
+        return 'Đơn thức';
+      case 'b18_sp':
+        return 'Cách chơi đặt biệt';
+      case 'b18_S_nk':
+        return 'Tổng điểm';
+      case 'b18_B':
+        return '3 số trùng nhau';
+      default:
+        break;
+    }
+  };
 
   const columns: ProColumns[] = [
     {
@@ -74,7 +89,7 @@ const HistoriesBet = () => {
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>Nickname:</div>
-            <div>{row?.user?.user_name || "-"} </div>
+            <div>{row?.user?.user_name || '-'} </div>
           </div>
         </div>
       ),
@@ -88,12 +103,32 @@ const HistoriesBet = () => {
       render: (_, row: any) => (
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between gap-1">
-            <div>Bet Id:</div>
-            <div>{row?.bet_id || "-"}</div>
+            {row?.bet_type === 'bingo' ? (
+              <>
+                <div>Hình thức:</div>
+                <div>{getTypeBingo(row?.transaction_type)}</div>
+              </>
+            ) :
+            <>
+                <div>Hình thức:</div>
+                <div>{row?.transaction_type}</div>
+              </>
+            }
           </div>
           <div className="flex items-center justify-between gap-1">
-            <div>{t("Số lượng cược")}:</div>
+            <div>Loại Bet:</div>
+            <div>{row?.bet_type === 'bingo' ? 'Bingo' : 'Xổ số'}</div>
+          </div>
+          <div className="flex items-center justify-between gap-1">
+            <div>Bet Id:</div>
+            <div>{row?.bet_id || '-'}</div>
+          </div>
+          <div className="flex items-center justify-between gap-1">
+            <div>{t('Số lượng cược')}:</div>
             <div>{formatNumber(row?.value)}</div>
+          </div><div className="flex items-center justify-between gap-1">
+            <div>{t('Số lượng thắng')}:</div>
+            <div>{formatNumber(row?.winValue)}</div>
           </div>
         </div>
       ),
@@ -108,16 +143,11 @@ const HistoriesBet = () => {
           {' '}
           <div className="flex items-center justify-between gap-1">
             {row?.transaction_status === 'pending' ? (
-              <Tag color='warning'>{t("Đang chờ")}</Tag>
+              <Tag color="warning">{t('Đang chờ')}</Tag>
+            ) : row?.transaction_status === 'cancel' ? (
+              <Tag color={'red-inverse'}>{t('Thua')}</Tag>
             ) : (
-              row?.transaction_status === 'cancel' ?
-                <Tag color={'red-inverse'}>
-                  {t("Thua")}
-                </Tag>
-                :
-                <Tag color={'green-inverse'}>
-                  {t("Thắng")}
-                </Tag>
+              <Tag color={'green-inverse'}>{t('Thắng')}</Tag>
             )}
           </div>
         </div>
@@ -132,16 +162,6 @@ const HistoriesBet = () => {
         <div>{new Date(row?.createdAt).toLocaleString()}</div>
       ),
     },
-    {
-      title: t('Kết thúc'),
-      sorter: false,
-      align: 'center',
-      ellipsis: true,
-      render: (_, row: any) => (
-        <div>{new Date(+row?.bet_id).toLocaleString()}</div>
-      ),
-    },
-
   ];
 
   const handleWithdraw = async (transId: string, isResolve: boolean) => {
@@ -171,8 +191,6 @@ const HistoriesBet = () => {
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <LoadingScreen spinning={loading} />
-
-
 
       <ProTable
         columns={columns}

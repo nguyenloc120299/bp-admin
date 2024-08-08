@@ -111,15 +111,15 @@ const Withdraw = () => {
         <>
           <div className="flex items-center justify-between gap-1">
             <div>{t("")}:</div>
-            <div className=" font-bold">{row?.user?.number_bank}</div>
+            <div className=" font-bold">{row?.number_bank}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>{t("Tên chủ thẻ")}:</div>
-            <div className=" font-bold">{row?.user?.account_name}</div>
+            <div className=" font-bold">{row?.account_name}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>{t("Tên Ngân Hàng")}:</div>
-            <div className=" font-bold">{row?.user?.name_bank}</div>
+            <div className=" font-bold">{row?.name_bank}</div>
           </div>
         </>
       ),
