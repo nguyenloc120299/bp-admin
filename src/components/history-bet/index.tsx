@@ -21,6 +21,7 @@ import { formatNumber } from '../../utils/helpers';
 import LoadingScreen from '../common/LoadingScreen';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { RiCloseCircleFill } from 'react-icons/ri';
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -142,7 +143,7 @@ const HistoriesBet = () => {
       key: 'option',
       fixed: 'right',
       render: (_, row: any) =>
-        row?.transaction_status === 'pending' ? (
+        !row?.bet_condition ? (
           <div className="flex items-center gap-1">
             <Button
               className="!bg-green-600 text-[#fff] font-[700]"
@@ -159,7 +160,7 @@ const HistoriesBet = () => {
           </div>
         ) : (
           <div className="font-bold">
-            <CheckOutlined />
+           {row?.bet_condition==='win' ?<CheckOutlined /> : <RiCloseCircleFill/> } 
           </div>
         ),
     },

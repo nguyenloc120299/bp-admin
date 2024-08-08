@@ -143,7 +143,7 @@ const Users = () => {
 
           <div className="flex items-center justify-between gap-1">
             <div>{t("Số dư")}:</div>
-            <div className="text-yellow-700 font-bold">{formatNumber(row?.real_balance)}</div>
+            <div className="text-yellow-700 font-bold">{formatNumber(row?.real_balance?.toFixed(2))}</div>
           </div>
           <div className="flex items-center justify-between gap-1">
             <div>VIP:</div>
