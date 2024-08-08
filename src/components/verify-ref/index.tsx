@@ -42,7 +42,7 @@ const UserRef = () => {
     isMember: boolean
   ) => {
     setLoading(true);
-    try {
+    try { 
       const res = await http.post(apiRoutes.handleVerifyCTV, {
         isCheck,
         transId,
