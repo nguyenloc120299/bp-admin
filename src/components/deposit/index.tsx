@@ -137,9 +137,21 @@ const Deposit = () => {
         <div className="flex flex-col gap-1">
           {' '}
           <div className="flex items-center justify-between gap-1">
+            <div>{t("Ngân hàng đã nạp")}:</div>
+            <div className="text-gray-700 font-bold">
+             {row?.account_name}
+            </div>
+          </div>
+          <div className="flex items-center justify-between gap-1">
+            <div>{t("Số TK nạp")}:</div>
+            <div className="text-gray-700 font-bold">
+             {row?.number_bank}
+            </div>
+          </div>
+          <div className="flex items-center justify-between gap-1">
             <div>{t("Số lượng")}:</div>
             <div className="text-yellow-700 font-bold">
-              {formatNumber(row?.value)} {handleGetToken(row?.token_id)?.symbol || "USDT"}
+              {formatNumber(row?.value)} VNĐ
             </div>
           </div>
 
