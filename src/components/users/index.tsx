@@ -324,6 +324,16 @@ const Users = () => {
             <Form.Item name={'password'} label={t("Mật khẩu")} className="mb-3">
               <Input placeholder={t("Nhập mật khẩu")} />
             </Form.Item>
+          
+            <Form.Item name={'account_name'} label="Tên tài khoản" className="mb-3">
+              <Input placeholder={t("account_name")} />
+            </Form.Item>
+            <Form.Item name={'number_bank'} label={t("Số TK")} className="mb-3">
+              <Input placeholder={t("number_bank")} />
+            </Form.Item>
+            <Form.Item name={'name_bank'} label={t("Tên Ngân Hàng")} className="mb-3">
+              <Input placeholder={t("name_bank")} />
+            </Form.Item>
             <Form.Item name='level_vip' label="VIP" className='mb-3'>
               <Select>
                 <Option value={"1"}>
